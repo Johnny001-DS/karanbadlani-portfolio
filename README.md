@@ -2,7 +2,7 @@
 
 A modern, responsive portfolio website showcases my journey as a Data Science Grad student at Northeastern University and my experience as a Strategic Data Professional.
 
-[![Deploy to GitHub Pages](https://github.com/jkhadan/jkhadan.github.io/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/jkhadan/jkhadan.github.io/actions/workflows/deploy.yml)
+[![Deploy to GitHub Pages](https://github.com/Johnny001-DS/Johnny001-DS.github.io/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/Johnny001-DS/Johnny001-DS.github.io/actions/workflows/deploy.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-14+-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4+-38B2AC)
@@ -60,7 +60,7 @@ A modern, responsive portfolio website showcases my journey as a Data Science Gr
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/jkhadan/portfolio-website.git
+   git clone https://github.com/Johnny001-DS/karanbadlani-portfolio.git
    cd portfolio-website
    ```
 
@@ -139,11 +139,11 @@ The website includes:
 
 ## 📞 Contact
 
-- **Email**: [jameskhadan@gmail.com](mailto:jameskhadan@gmail.com)
-- **LinkedIn**: [linkedin.com/in/jameskhadan](https://linkedin.com/in/jameskhadan)
-- **GitHub**: [github.com/jkhadan](https://github.com/jkhadan)
-- **Portfolio**: [jkhadan.github.io](https://jkhadan.github.io)
+- **Email**: [jameskhadan@gmail.com](mailto:karanbadlani@gmail.com)
+- **LinkedIn**: [linkedin.com/in/jameskhadan](https://www.linkedin.com/in/karan-badlani/)
+- **GitHub**: [github.com/jkhadan](https://github.com/Johnny001-DS)
+- **Portfolio**: [jkhadan.github.io](https://Johnny001-DS.github.io)
 
 ---
 
-Built with ❤️ by James Khadan using Next.js and TypeScript.
+Built by Karan Badlani.
