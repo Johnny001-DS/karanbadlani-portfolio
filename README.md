@@ -1,4 +1,4 @@
-# James Khadan - Portfolio Website
+# Karan Badlani - Portfolio Website
 
 A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS. This portfolio showcases my journey as a Computer Science student at Northeastern University and my experience as a full-stack software engineer.
 
