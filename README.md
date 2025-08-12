@@ -1,6 +1,6 @@
 # Karan Badlani - Portfolio Website
 
-A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS. This portfolio showcases my journey as a Computer Science student at Northeastern University and my experience as a full-stack software engineer.
+A modern, responsive portfolio website showcases my journey as a Data Science Grad student at Northeastern University and my experience as a Strategic Data Professional.
 
 [![Deploy to GitHub Pages](https://github.com/jkhadan/jkhadan.github.io/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/jkhadan/jkhadan.github.io/actions/workflows/deploy.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-14+-black)
