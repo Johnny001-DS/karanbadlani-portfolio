@@ -139,10 +139,10 @@ The website includes:
 
 ## 📞 Contact
 
-- **Email**: [jameskhadan@gmail.com](mailto:karanbadlani@gmail.com)
-- **LinkedIn**: [linkedin.com/in/jameskhadan](https://www.linkedin.com/in/karan-badlani/)
-- **GitHub**: [github.com/jkhadan](https://github.com/Johnny001-DS)
-- **Portfolio**: [jkhadan.github.io](https://Johnny001-DS.github.io)
+- **Email**: [karanbadlani001@gmail.com](mailto:karanbadlani@gmail.com)
+- **LinkedIn**: [linkedin.com/in/karan-badlani/](https://www.linkedin.com/in/karan-badlani/)
+- **GitHub**: [github.com/Johnny001-DS](https://github.com/Johnny001-DS)
+- **Portfolio**: [Johnny001-DS.github.io](https://Johnny001-DS.github.io)
 
 ---
 
