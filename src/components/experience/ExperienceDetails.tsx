@@ -3,8 +3,10 @@ import { Calendar } from 'lucide-react';
 import { ExperienceDetailsProps } from '@/types';
 import { MapPin, Briefcase, Code, Award, MessageSquare } from 'lucide-react';
 import { X } from 'lucide-react';
+import { useRouter } from 'next/router';
 
 const ExperienceDetails: React.FC<ExperienceDetailsProps> = ({ experience, onClose }) => {
+    const { basePath } = useRouter();
     if (!experience) return null;
     
     return (
@@ -32,7 +34,7 @@ const ExperienceDetails: React.FC<ExperienceDetailsProps> = ({ experience, onClo
                 <div className="mr-4">
                   <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-md flex items-center justify-center">
                     <img 
-                      src={experience.logo} 
+                      src={`${basePath}${experience.logo}`}
                       alt={experience.company} 
                       className="w-12 h-12 object-contain"
                     />

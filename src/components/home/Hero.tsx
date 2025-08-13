@@ -1,7 +1,9 @@
 import { ArrowDownCircle } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 const Hero: React.FC = () => {
+    const { basePath } = useRouter();
     const scrollToAbout = () => {
       const element = document.getElementById('about');
       if (element) {
@@ -94,7 +96,7 @@ const Hero: React.FC = () => {
                     View My Work
                   </a>
                   <a 
-                    href="/app/files/KB_DS_Boston.pdf"
+                    href={`${basePath}/app/files/KB_DS_Boston.pdf`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-8 py-4 bg-white dark:bg-gray-800 border border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 font-medium rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
@@ -113,7 +115,7 @@ const Hero: React.FC = () => {
                 
                 <div className="relative w-64 h-64 md:w-80 md:h-80 bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl transform rotate-3 hover:rotate-0 transition-all duration-500">
                   <img 
-                    src="/app/images/misc/KB.jpeg"
+                    src={`${basePath}/app/images/misc/KB.jpeg`}
                     alt="Karan Badlani" 
                     className="w-full h-full object-cover rounded-2xl"
                   />

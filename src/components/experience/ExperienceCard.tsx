@@ -1,8 +1,10 @@
 import React from 'react';
 import { Calendar, ChevronRight } from 'lucide-react';
 import { ExperienceCardProps } from '@/types';
+import { useRouter } from 'next/router';
 
 const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, onSelect, isActive = false }) => {
+    const { basePath } = useRouter();
     const cardClasses = `relative bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ${
       isActive ? 'border-l-4 border-blue-600 dark:border-blue-400' : ''
     }`;
@@ -16,7 +18,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, onSelect, i
           <div className="flex-shrink-0 mr-4">
             <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-md overflow-hidden">
               <img 
-                src={experience.logo} 
+                src={`${basePath}${experience.logo}`}
                 alt={experience.company} 
                 className="w-full h-full object-cover"
               />

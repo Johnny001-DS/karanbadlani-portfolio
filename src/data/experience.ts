@@ -1,13 +1,11 @@
 import { Experience } from "@/types/index";
 
-const imgRoot = "/app/images/experiences/"
-
 export const experiences: Experience[] = 
 [
   {
     id: 1,
     company: "MFS Investment Management",
-    logo: imgRoot + "mfs_logo.png",
+    logo: "/app/images/experiences/mfs_logo.png",
     position: "Data Science Analyst",
     period: "January 2025 - July 2025",
     location: "Boston, MA",
@@ -40,7 +38,7 @@ export const experiences: Experience[] =
   {
     id: 2,
     company: "Khoury College of Computer Sciences, Northeastern University",
-    logo: imgRoot + "northeastern_logo.png",
+    logo: "/app/images/experiences/northeastern_logo.png",
     position: "Research and Teaching Assistant",
     period: "May 2024 - December 2024",
     location: "Boston, MA",
@@ -65,7 +63,7 @@ export const experiences: Experience[] =
   {
     id: 3,
     company: "InfoCepts",
-    logo: imgRoot + "infocepts_logo.jpeg",
+    logo: "/app/images/experiences/infocepts_logo.jpeg",
     position: "Data Scientist",
     period: "December 2022 - June 2023",
     location: "India",
@@ -95,7 +93,7 @@ export const experiences: Experience[] =
   {
     id: 4,
     company: "Shri Ramdeobaba College of Engineering",
-    logo: imgRoot + "srcoe_logo.png",
+    logo: "/app/images/experiences/srcoe_logo.png",
     position: "Research Scientist",
     period: "January 2022 - June 2022",
     location: "India",
