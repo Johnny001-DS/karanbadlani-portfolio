@@ -44,7 +44,7 @@ const Hero: React.FC = () => {
       }, isDeleting ? 50 : 100);
       
       return () => clearTimeout(timeout);
-    }, [displayText, currentPhraseIndex, isDeleting]);
+    }, [displayText, currentPhraseIndex, isDeleting, phrases]);
 
     useEffect(() => {
       const cursorInterval = setInterval(() => {

@@ -1,8 +1,5 @@
 import { Project } from '@/types/index';
 
-const imgRoot = "/app/images/projects/"
-
-
 export const projects: Project[] = [
   {
     id: 1,

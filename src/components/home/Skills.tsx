@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { Layout, GraduationCap, Terminal, Cloud, Snowflake } from 'lucide-react';
+import { Layout, GraduationCap, Terminal, Cloud } from 'lucide-react';
 import SkillCategory from '@/components/ui/SkillCategory';
-import ClubCard from '@/components/clubs/ClubCard';
-import ClubDetails from '@/components/clubs/ClubDetails';
 import CourseDetails from '@/components/courses/CourseDetails';
-import { clubs } from '@/data/skills';
 import { relevantCourses } from '@/data/skills';
-import { Club, Course } from '@/types';
+import { Course } from '@/types';
 
 const Skills: React.FC = () => {
     const languages = ["Python", "R", "Java", "SQL"];
@@ -15,7 +12,6 @@ const Skills: React.FC = () => {
     
     
 
-    const [selectedClub, setSelectedClub] = useState<Club | null>(null);
     const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
     return (
@@ -78,39 +74,6 @@ const Skills: React.FC = () => {
                 </div>
               </div>
             </div>
-            
-            {/* Club Involvement */}
-            {/* <div className="mt-16">
-              <div className="text-center mb-12">
-                <h3 className="text-2xl md:text-3xl font-bold">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                    Club Involvement
-                  </span>
-                </h3>
-                <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-2"></div>
-                <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-4">
-                  I&apos;m actively engaging with student organizations to build skills and contribute to the community
-                </p>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-8">
-                {clubs.map((club, index) => (
-                  <ClubCard 
-                    key={index} 
-                    club={club} 
-                    onSelect={setSelectedClub} 
-                  />
-                ))}
-              </div>
-            </div>
-            
-            {selectedClub && (
-              <ClubDetails 
-                club={selectedClub} 
-                onClose={() => setSelectedClub(null)} 
-              />
-            )} */}
-
             {selectedCourse && (
               <CourseDetails
                 course={selectedCourse}
