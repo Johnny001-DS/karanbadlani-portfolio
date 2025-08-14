@@ -97,7 +97,6 @@ yarn start
 
 ```
 ├── components/              # React components
-│   ├── clubs/              # Club-related components
 │   ├── courses/            # Course detail components
 │   ├── experience/         # Experience components
 │   ├── home/               # Home page sections
