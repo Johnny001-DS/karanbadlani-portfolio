@@ -142,7 +142,7 @@ The website includes:
 - **Email**: [karanbadlani001@gmail.com](mailto:karanbadlani@gmail.com)
 - **LinkedIn**: [linkedin.com/in/karan-badlani/](https://www.linkedin.com/in/karan-badlani/)
 - **GitHub**: [github.com/Johnny001-DS](https://github.com/Johnny001-DS)
-- **Portfolio**: [Johnny001-DS.github.io](https://Johnny001-DS.github.io)
+- **Portfolio**: [Johnny001-DS.github.io](https://johnny001-ds.github.io/karanbadlani-portfolio/)
 
 ---
 
