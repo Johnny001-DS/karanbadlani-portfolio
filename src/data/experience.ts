@@ -65,7 +65,7 @@ export const experiences: Experience[] =
     company: "InfoCepts",
     logo: "/app/images/experiences/infocepts_logo.jpeg",
     position: "Data Scientist",
-    period: "December 2022 - June 2023",
+    period: "July 2022 - July 2023",
     location: "India",
     description: "Developed predictive models and scalable data pipelines to enhance demand forecasting and business intelligence dashboards.",
     details: {
