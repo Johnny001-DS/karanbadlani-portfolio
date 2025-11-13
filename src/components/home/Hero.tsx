@@ -96,7 +96,7 @@ const Hero: React.FC = () => {
                     View My Work
                   </a>
                   <a 
-                    href={`${basePath}/app/files/KB_DS_Boston.pdf`}
+                    href={`${basePath}/app/files/Karan Badlani_DS_New.pdf`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-8 py-4 bg-white dark:bg-gray-800 border border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 font-medium rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
