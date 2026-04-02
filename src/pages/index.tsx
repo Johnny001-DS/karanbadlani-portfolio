@@ -9,55 +9,33 @@ type ImpactStat = {
   detail: string;
 };
 
-type AudienceView = 'Recruiters' | 'Hiring Managers';
-
-type AudienceBrief = {
+type LensCard = {
   title: string;
-  lead: string;
-  priorities: string[];
-  proofSignals: string[];
-};
-
-type RecruiterSignal = {
-  title: string;
-  recruiterQuestion: string;
-  answer: string;
-};
-
-type ManagerSignal = {
-  stage: string;
-  technicalMove: string;
-  businessMove: string;
-  governance: string;
+  label: string;
+  bullets: string[];
 };
 
 type Pillar = {
   title: string;
-  summary: string;
-  businessTranslation: string;
   tools: string[];
 };
 
 type ActionMapItem = {
   step: string;
   stakeholder: string;
-  decision: string;
-  cadence: string;
-  value: string;
+  action: string;
+  outcome: string;
 };
 
 type GuidanceStep = {
-  phase: string;
-  businessInput: string;
-  whatIDeliver: string;
-  decisionEnabled: string;
+  id: number;
+  label: string;
+  summary: string;
 };
 
 type BusinessStory = {
   title: string;
-  context: string;
-  build: string;
-  actionEnabled: string;
+  what: string;
   outcome: string;
 };
 
@@ -89,6 +67,7 @@ type InterestTrack = {
 
 const navItems = [
   { id: 'home', label: 'Home' },
+  { id: 'why-hire', label: 'Why Hire Me' },
   { id: 'business', label: 'Business Lens' },
   { id: 'guidance', label: 'Business Guidance' },
   { id: 'experience', label: 'Experience' },
@@ -100,201 +79,126 @@ const impactStats: ImpactStat[] = [
   {
     value: '17%',
     label: 'Sales conversion lift',
-    detail: 'A/B-test-informed recommendations translated model output into concrete advisor actions.',
+    detail: 'A/B-tested recommendations improved advisor conversion actions.',
   },
   {
     value: '40m -> 30s',
     label: 'Research time reduction',
-    detail: 'Internal RAG platform made portfolio managers faster at finding evidence-backed answers.',
+    detail: 'Internal RAG cut research retrieval to seconds.',
   },
   {
     value: '55%',
     label: 'False-positive reduction',
-    detail: 'LangGraph-based retrieval quality controls improved precision before stakeholder rollout.',
+    detail: 'LangGraph quality loops reduced pre-rollout noise.',
   },
   {
     value: '15',
     label: 'Production-grade projects',
-    detail: 'Portfolio spans analytics engineering, MLOps, healthcare AI, NLP, and decision intelligence.',
+    detail: 'Shipped assets across analytics, MLOps, and healthcare AI.',
   },
 ];
 
-const audienceBriefs: Record<AudienceView, AudienceBrief> = {
-  Recruiters: {
-    title: 'Recruiter Lens: 30-second role fit',
-    lead: 'Short version: I am a business-facing AI data scientist who can translate ambiguity into shipped, measurable outcomes.',
-    priorities: [
-      'Demonstrated business impact with clear metric deltas.',
-      'Can collaborate across analytics, engineering, and leadership stakeholders.',
-      'Can independently execute from strategy to production.',
-    ],
-    proofSignals: [
-      'Reduced advisor forecasting error from 7.5% to 1.65%.',
-      'Cut research retrieval from 40 minutes to under 30 seconds.',
-      'Turned model outputs into decision workflows, not one-off insights.',
+const lensCards: LensCard[] = [
+  {
+    title: 'Recruiter View',
+    label: '30-second fit',
+    bullets: [
+      'Forecast error: 7.5% -> 1.65%',
+      'Research retrieval: 40 min -> under 30 sec',
+      'End-to-end delivery: strategy through production',
     ],
   },
-  'Hiring Managers': {
-    title: 'Hiring Manager Lens: execution model',
-    lead: 'I operate with a product mindset: define decision owners first, design robust architecture second, and prove business movement third.',
-    priorities: [
-      'Clear problem framing tied to KPI ownership.',
-      'Production reliability through validation, monitoring, and deployment rigor.',
-      'Business-action loops that show downstream adoption and impact.',
+  {
+    title: 'Hiring Manager View',
+    label: 'Technical depth',
+    bullets: [
+      'LangGraph RAG with relevance control loops',
+      'RF segmentation, chi-square hypothesis validation',
+      'MLOps: MLflow, Docker, FastAPI, CI/CD',
     ],
-    proofSignals: [
-      'Improved retrieval F1 from 0.64 to 0.85 through query control loops.',
-      'Built Snowflake + forecasting architecture over 200GB+ workloads.',
-      'Operationalized churn/risk workflows with tracked, deployable ML lifecycle patterns.',
-    ],
-  },
-};
-
-const recruiterSignals: RecruiterSignal[] = [
-  {
-    title: 'Business Outcome Focus',
-    recruiterQuestion: 'Can this person drive measurable outcomes?',
-    answer: 'Yes. My delivery history is framed by conversion lift, forecast accuracy gains, and decision-speed improvements.',
-  },
-  {
-    title: 'Cross-Functional Communication',
-    recruiterQuestion: 'Can this person work with non-technical stakeholders?',
-    answer: 'Yes. I design outputs as decision narratives (what to do next, why, and expected KPI effect), not raw model dumps.',
-  },
-  {
-    title: 'Execution Versatility',
-    recruiterQuestion: 'Can this person own delivery beyond modeling?',
-    answer: 'Yes. I work across data engineering, modeling, MLOps, and stakeholder rollouts to move projects end-to-end.',
-  },
-];
-
-const hiringManagerSignals: ManagerSignal[] = [
-  {
-    stage: 'Problem Framing',
-    technicalMove: 'Define KPI, leading indicators, and decision boundary before selecting algorithms.',
-    businessMove: 'Prevents misaligned optimization and improves stakeholder trust from day one.',
-    governance: 'Documented owner, decision cadence, and success criteria.',
-  },
-  {
-    stage: 'System Design',
-    technicalMove: 'Build reproducible pipelines with validation gates, versioned data/model assets, and observability hooks.',
-    businessMove: 'Keeps production stable and reduces stakeholder disruption from model drift or data breaks.',
-    governance: 'Runbooks for failure handling and rollback-ready deployment paths.',
-  },
-  {
-    stage: 'Adoption & Action',
-    technicalMove: 'Translate predictions into action tiers (who to target, when, and with what confidence).',
-    businessMove: 'Turns insights into operational decisions instead of passive dashboards.',
-    governance: 'Track action uptake and KPI response in recurring business reviews.',
   },
 ];
 
 const pillars: Pillar[] = [
   {
-    title: 'Data Science with Decision Ownership',
-    summary:
-      'I frame modeling work around who needs to act, how often they act, and what threshold changes behavior.',
-    businessTranslation:
-      'Stakeholders do not get raw scores. They get prioritized actions, confidence context, and next-best decisions.',
-    tools: ['Predictive Modeling', 'Experiment Design', 'Segmentation', 'Forecasting'],
+    title: 'Predictive Modeling',
+    tools: ['Forecasting', 'Segmentation', 'Experiment Design'],
   },
   {
-    title: 'Analytics Engineering that Builds Trust',
-    summary:
-      'I design data systems that keep metrics consistent across dashboards, models, and executive reviews.',
-    businessTranslation:
-      'When KPI definitions are stable and traceable, teams move faster and spend less time debating numbers.',
-    tools: ['SQL', 'Airflow', 'Snowflake', 'ADF', 'Power BI/Tableau'],
+    title: 'Analytics Engineering',
+    tools: ['SQL', 'Airflow', 'Snowflake', 'Power BI/Tableau'],
   },
   {
-    title: 'Generative AI with Production Guardrails',
-    summary:
-      'I build retrieval and LLM workflows with evaluation loops, fallback behavior, and measurable quality targets.',
-    businessTranslation:
-      'Outputs stay actionable for business users because latency, relevance, and confidence are continuously managed.',
-    tools: ['LangChain', 'LangGraph', 'RAGAS', 'FastAPI', 'MLflow', 'Docker'],
+    title: 'Generative AI',
+    tools: ['LangChain/LangGraph', 'RAGAS', 'FastAPI', 'MLflow', 'Docker'],
   },
 ];
 
 const actionMap: ActionMapItem[] = [
   {
     step: 'Frame the decision',
-    stakeholder: 'Business lead / Product owner',
-    decision: 'Which KPI and action should change if the model is right?',
-    cadence: 'Project kickoff',
-    value: 'Prevents building technically impressive but operationally unused systems.',
+    stakeholder: 'Business Lead / Product Owner',
+    action: 'Define KPI and decision owner upfront',
+    outcome: 'Prevents technically impressive but unused systems',
   },
   {
-    step: 'Model + explain in context',
-    stakeholder: 'Analysts and domain SMEs',
-    decision: 'Which segments, risks, or opportunities matter this cycle?',
-    cadence: 'Weekly iteration',
-    value: 'Improves trust and adoption by pairing scores with interpretable drivers.',
+    step: 'Model with context',
+    stakeholder: 'Analysts and Domain SMEs',
+    action: 'Prioritize segments, risks, and opportunities weekly',
+    outcome: 'Improves trust and action adoption',
   },
   {
     step: 'Operationalize delivery',
-    stakeholder: 'Data/Platform teams',
-    decision: 'How will this run, fail safely, and recover in production?',
-    cadence: 'Before launch',
-    value: 'Reduces downtime and protects decision continuity under real traffic.',
+    stakeholder: 'Data / Platform Teams',
+    action: 'Deploy with runbooks, rollback paths, and alerts',
+    outcome: 'Reduces downtime and service disruption',
   },
   {
-    step: 'Close the action loop',
-    stakeholder: 'Functional teams',
-    decision: 'What action was taken and what business delta followed?',
-    cadence: 'Bi-weekly review',
-    value: 'Transforms ML from insight generation into measurable business execution.',
+    step: 'Close the loop',
+    stakeholder: 'Functional Teams',
+    action: 'Track actions taken and KPI movement',
+    outcome: 'Transforms insights into measurable execution',
   },
 ];
 
 const guidanceSteps: GuidanceStep[] = [
   {
-    phase: '1) Align on business objective',
-    businessInput: 'You define the business objective (revenue, retention, risk, cost, speed) and the decision owner.',
-    whatIDeliver: 'I convert objective into measurable KPI, operating constraints, and success thresholds.',
-    decisionEnabled: 'Leadership can approve a clear scope with ROI logic before technical build starts.',
+    id: 1,
+    label: 'Align on Objective',
+    summary: 'KPI, decision owner, and ROI logic defined first',
   },
   {
-    phase: '2) Build for operational use',
-    businessInput: 'You provide operating realities: data freshness needs, action cadence, and acceptable risk.',
-    whatIDeliver: 'I design pipelines/models/RAG flows that match those realities with reliability guardrails.',
-    decisionEnabled: 'Teams can use outputs in day-to-day workflows instead of ad hoc analysis.',
+    id: 2,
+    label: 'Build for Operations',
+    summary: 'Pipelines matched to data freshness and action cadence',
   },
   {
-    phase: '3) Translate output to action',
-    businessInput: 'You clarify how teams act on different confidence bands and priority tiers.',
-    whatIDeliver: 'I package output into decision-ready views (who to act on, why now, what next).',
-    decisionEnabled: 'Stakeholders can take immediate action without interpreting raw technical artifacts.',
+    id: 3,
+    label: 'Package for Action',
+    summary: 'Output as prioritized decisions, not raw model scores',
   },
   {
-    phase: '4) Close the business loop',
-    businessInput: 'You track adoption and business movement with us in recurring review cycles.',
-    whatIDeliver: 'I provide monitoring, drift checks, and KPI impact reporting tied to decisions taken.',
-    decisionEnabled: 'Organization learns what worked, what to tune, and where to scale next.',
+    id: 4,
+    label: 'Close the Loop',
+    summary: 'Monitoring, drift checks, and KPI impact reviews',
   },
 ];
 
 const businessStories: BusinessStory[] = [
   {
-    title: 'Advisor Forecasting and Segmentation (MFS)',
-    context: 'Sales teams needed reliable advisor-level forecasts and clearer retention priorities across large advisor cohorts.',
-    build: 'Built SARIMA vs Prophet benchmarking, engineered behavioral features, and segmented advisors with classification workflows.',
-    actionEnabled: 'Leadership received prioritized advisor interventions instead of raw model output, with experiment-backed confidence.',
-    outcome: 'Forecast error dropped from 7.5% to 1.65%, and recommendation rollout contributed to a 17% conversion lift.',
+    title: 'Advisor Forecasting & Segmentation - MFS',
+    what: 'Prophet + RF segmentation across 500 advisors, 200GB+ inputs',
+    outcome: 'Forecast error: 7.5% -> 1.65% | Conversion lift: 17%',
   },
   {
-    title: 'Research Intelligence RAG Platform',
-    context: 'Portfolio managers were losing time searching documents and validating fragmented research responses.',
-    build: 'Shipped retrieval pipelines with query rewriting and relevance grading to improve answer quality over internal documents.',
-    actionEnabled: 'Teams could make research-backed investment decisions in minutes rather than long manual search cycles.',
-    outcome: 'Discovery time moved from 40 minutes to under 30 seconds with a major precision improvement.',
+    title: 'Research Intelligence RAG Platform - MFS',
+    what: 'LangGraph retrieval with query rewriting over internal docs',
+    outcome: 'Discovery time: 40 min -> under 30 sec',
   },
   {
-    title: 'Churn and Risk Workflows',
-    context: 'Customer and risk signals existed, but operational teams lacked production-grade systems for timely intervention.',
-    build: 'Built reproducible model lifecycle flows with tracking, API serving, containerization, and deployment pipelines.',
-    actionEnabled: 'Stakeholders could trigger intervention playbooks directly from model outputs with consistent service interfaces.',
-    outcome: 'Faster retention response cycles and scalable serving patterns for ongoing model operations.',
+    title: 'Churn & Risk Workflows',
+    what: 'MLflow + FastAPI + Docker serving pipeline, CI/CD deployed',
+    outcome: '88% recall | Sub-10ms inference | Reproducible lifecycle',
   },
 ];
 
@@ -346,7 +250,7 @@ const projects: Project[] = [
     name: 'Decision Copilot for Enterprise Knowledge',
     url: 'https://github.com/Johnny001-DS/ProductionGradeRAGPythonApp',
     categories: ['Generative AI', 'MLOps', 'RAG'],
-    summary: 'Production-ready document QA with PDF ingestion, vector retrieval, and evaluation-first RAG quality management.',
+    summary: 'Document QA with ingestion, retrieval, and evaluation loops.',
     highlights: ['Qdrant + embeddings retrieval', 'RAGAS evaluation loops', 'Streamlit workflow for rapid stakeholder access'],
   },
   {
@@ -354,7 +258,7 @@ const projects: Project[] = [
     name: 'Revenue Retention Action Engine',
     url: 'https://github.com/Johnny001-DS/telco-churn-app',
     categories: ['MLOps', 'Data Science', 'Analytics'],
-    summary: 'End-to-end churn system from feature engineering to API deployment and monitoring-ready model operations.',
+    summary: 'Churn prediction system from feature pipeline to deployment.',
     highlights: ['XGBoost-centric pipeline', 'MLflow tracking', 'Dockerized serving + reproducible CI/CD'],
   },
   {
@@ -362,7 +266,7 @@ const projects: Project[] = [
     name: 'Conversational Order Automation Assistant',
     url: 'https://github.com/Johnny001-DS/dialogflow_chatbot',
     categories: ['NLP', 'Chatbot'],
-    summary: 'Conversational ordering assistant with intent management, webhook processing, and transactional persistence.',
+    summary: 'Dialog assistant for intent-based ordering and persistence.',
     highlights: ['Dialogflow intent/entity design', 'MySQL-backed order state', 'Frontend integration for business usability'],
   },
   {
@@ -370,7 +274,7 @@ const projects: Project[] = [
     name: 'Clinical Triage Signal Classifier',
     url: 'https://github.com/Johnny001-DS/Breast-cancer-classification',
     categories: ['Healthcare', 'Data Science', 'Computer Vision'],
-    summary: 'Medical imaging classification workflow for benign vs malignant pattern detection experiments.',
+    summary: 'Histopathology image model for benign versus malignant patterns.',
     highlights: ['Histopathology image framing', 'Model experimentation in notebook pipelines', 'Clinical AI context alignment'],
   },
   {
@@ -378,7 +282,7 @@ const projects: Project[] = [
     name: 'Neuro-Signal Insight Classifier',
     url: 'https://github.com/Johnny001-DS/EEG-Brain-Signal-classification',
     categories: ['Healthcare', 'Data Science', 'Signal Processing'],
-    summary: 'EEG signal processing and emotion classification research for interpretable biological endpoints.',
+    summary: 'EEG signal processing for interpretable emotion classification.',
     highlights: ['Signal preprocessing workflow', 'Feature extraction patterns', 'Classification benchmark experimentation'],
   },
   {
@@ -386,7 +290,7 @@ const projects: Project[] = [
     name: 'Lending Risk Decision Model',
     url: 'https://github.com/Johnny001-DS/Credit_Risk_Modeling',
     categories: ['Finance', 'Data Science', 'Analytics'],
-    summary: 'Probability-of-default modeling for lending risk, combining traditional and boosted model strategies.',
+    summary: 'Probability-of-default model suite for lending risk decisions.',
     highlights: ['Logistic regression + XGBoost', 'ROC/precision-recall evaluation', 'Risk-centric feature engineering'],
   },
   {
@@ -394,7 +298,7 @@ const projects: Project[] = [
     name: 'Healthcare Policy Intelligence Assistant',
     url: 'https://github.com/Johnny001-DS/Healthcare-RAG-Bot',
     categories: ['Generative AI', 'RAG', 'Healthcare', 'MLOps'],
-    summary: 'Healthcare insurance document assistant with contextual retrieval and Bedrock-based response generation.',
+    summary: 'Insurance document assistant with context retrieval and responses.',
     highlights: ['Amazon Titan embeddings', 'Amazon Nova Lite inference', 'User-friendly Streamlit interaction layer'],
   },
   {
@@ -402,7 +306,7 @@ const projects: Project[] = [
     name: 'Protein Function Discovery Predictor',
     url: 'https://github.com/Johnny001-DS/ProteinPrediction-HealthCare',
     categories: ['Healthcare', 'Data Science', 'Deep Learning'],
-    summary: 'CAFA5 protein function prediction workflow using sequence-based TensorFlow deep learning experiments.',
+    summary: 'Sequence-based deep learning for protein function prediction.',
     highlights: ['TensorFlow training pipeline', 'GO-term prediction setup', 'Competition-style validation approach'],
   },
   {
@@ -410,7 +314,7 @@ const projects: Project[] = [
     name: 'Executive-Ready Sales Intelligence Mart',
     url: 'https://github.com/Johnny001-DS/Analytics_DataWarehousing_R',
     categories: ['Data Engineering', 'Analytics', 'Data Warehousing'],
-    summary: 'Sales datamart design integrating multi-source systems through star schema and ETL in R + SQL.',
+    summary: 'Sales datamart with star schema and ETL for reporting.',
     highlights: ['Star schema modeling', 'SQLite -> MySQL ETL', 'Business reporting with R Markdown'],
   },
   {
@@ -418,7 +322,7 @@ const projects: Project[] = [
     name: 'Patient Care Recommendation Intelligence',
     url: 'https://github.com/Johnny001-DS/HealthCare-Recommendation-System',
     categories: ['Healthcare', 'Data Science', 'Analytics'],
-    summary: 'Patient clustering and recommendation research over NHANES with bias handling and dimensionality reduction.',
+    summary: 'Patient clustering and recommendation modeling over NHANES data.',
     highlights: ['KMeans/UMAP workflows', 'Bias handling notebooks', 'Patient-level recommendation scenarios'],
   },
   {
@@ -426,7 +330,7 @@ const projects: Project[] = [
     name: 'Multi-Document Evidence Navigator',
     url: 'https://github.com/Johnny001-DS/DocuFindAI',
     categories: ['Generative AI', 'MLOps', 'Chatbot', 'RAG'],
-    summary: 'Multi-format document and web QA platform comparing RAG and non-RAG quality profiles.',
+    summary: 'Multi-format QA with RAG versus non-RAG quality comparison.',
     highlights: ['Multi-format ingestion', 'RAG vs non-RAG evaluation', 'Transformer + FAISS architecture'],
   },
   {
@@ -434,7 +338,7 @@ const projects: Project[] = [
     name: 'Flight Operations KPI Pipeline',
     url: 'https://github.com/Johnny001-DS/flight-ops-airflow',
     categories: ['Data Engineering', 'Analytics', 'MLOps'],
-    summary: 'Bronze-silver-gold Airflow pipeline ingesting live aviation signals into Snowflake KPI layers.',
+    summary: 'Airflow medallion pipeline for aviation KPI reporting layers.',
     highlights: ['OpenSky ingestion schedule', 'Medallion data modeling', 'MERGE-based Snowflake loading'],
   },
   {
@@ -442,7 +346,7 @@ const projects: Project[] = [
     name: 'Insurance Operations Decision Simulator',
     url: 'https://github.com/Johnny001-DS/Insureit-DB-Simulation-main',
     categories: ['Data Engineering', 'Analytics'],
-    summary: 'CLI simulation of insurance operations with policy workflows and relational transaction logic.',
+    summary: 'CLI simulation of insurance operations and transaction logic.',
     highlights: ['Schema bootstrap scripts', 'Premium computation rules', 'Agent/admin process simulation'],
   },
   {
@@ -450,7 +354,7 @@ const projects: Project[] = [
     name: 'Financial Research Decision Assistant',
     url: 'https://github.com/Johnny001-DS/RAG-based-Financial-Analysis-Chatbot',
     categories: ['Generative AI', 'RAG', 'MLOps', 'Finance'],
-    summary: 'Financial RAG assistant blending retrieval architecture with cloud-native deployment patterns.',
+    summary: 'Financial RAG assistant with cloud-native deployment patterns.',
     highlights: ['DPR + FAISS retrieval', 'Cloud Run container deployment', 'DVC + MLflow lifecycle patterns'],
   },
   {
@@ -458,7 +362,7 @@ const projects: Project[] = [
     name: 'Customer Growth Segment Strategist',
     url: 'https://github.com/Johnny001-DS/customer-segmentation',
     categories: ['Analytics', 'Data Science'],
-    summary: 'Retail segmentation and recommendation design for targeted campaign and revenue optimization strategy.',
+    summary: 'Retail segments and recommendations for campaign targeting.',
     highlights: ['RFM-style feature framing', 'KMeans segment profiling', 'Recommendation decision mapping'],
   },
 ];
@@ -488,10 +392,11 @@ const Home: NextPage = () => {
   const router = useRouter();
   const basePath = router.basePath ?? '';
   const headline = 'Data Scientist · AI Engineer · Machine Learning Engineer · 2+ YOE';
+
   const [activeSection, setActiveSection] = useState<string>('home');
   const [activeTrackId, setActiveTrackId] = useState<InterestTrackId>('ds-analytics');
-  const [audienceView, setAudienceView] = useState<AudienceView>('Recruiters');
   const [typedHeadline, setTypedHeadline] = useState<string>('');
+  const [expandedProjects, setExpandedProjects] = useState<Set<number>>(new Set());
 
   const activeTrack = useMemo(
     () => interestTracks.find((track) => track.id === activeTrackId) ?? interestTracks[0],
@@ -503,7 +408,17 @@ const Home: NextPage = () => {
     return projects.filter((project) => trackProjects.has(project.id));
   }, [activeTrack]);
 
-  const audienceBrief = audienceBriefs[audienceView];
+  const toggleProject = (projectId: number) => {
+    setExpandedProjects((prev) => {
+      const next = new Set(prev);
+      if (next.has(projectId)) {
+        next.delete(projectId);
+      } else {
+        next.add(projectId);
+      }
+      return next;
+    });
+  };
 
   useEffect(() => {
     let index = 0;
@@ -516,7 +431,7 @@ const Home: NextPage = () => {
         setTypedHeadline(headline.slice(0, index));
         if (index === headline.length) {
           deleting = true;
-          timeoutId = setTimeout(tick, 1300);
+          timeoutId = setTimeout(tick, 1200);
           return;
         }
       } else {
@@ -524,15 +439,15 @@ const Home: NextPage = () => {
         setTypedHeadline(headline.slice(0, index));
         if (index === 0) {
           deleting = false;
-          timeoutId = setTimeout(tick, 300);
+          timeoutId = setTimeout(tick, 280);
           return;
         }
       }
 
-      timeoutId = setTimeout(tick, deleting ? 32 : 62);
+      timeoutId = setTimeout(tick, deleting ? 30 : 60);
     };
 
-    timeoutId = setTimeout(tick, 280);
+    timeoutId = setTimeout(tick, 240);
 
     return () => {
       if (timeoutId) {
@@ -560,7 +475,7 @@ const Home: NextPage = () => {
       revealTargets.forEach((node) => observer.unobserve(node));
       observer.disconnect();
     };
-  }, [activeTrackId, audienceView]);
+  }, [activeTrackId, expandedProjects]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -691,81 +606,30 @@ const Home: NextPage = () => {
               <h2>One profile, two clear hiring lenses</h2>
             </div>
 
-            <div className="why-hire-highlight">
-              <p className="highlight-kicker">Why Hire Me</p>
-              <h3>Business acumen is part of my technical process</h3>
-              <p>
-                I do not treat data science as a modeling-only function. I treat it as a decision-enablement function, where the
-                final deliverable is stakeholder action with measurable business movement.
-              </p>
-            </div>
+            <blockquote className="quote-line">
+              <em>
+                &ldquo;I treat data science as a decision-enablement function - the deliverable is stakeholder action.&rdquo;
+              </em>
+            </blockquote>
 
-            <div className="audience-toggle" role="tablist" aria-label="Audience lens selector">
-              {(['Recruiters', 'Hiring Managers'] as AudienceView[]).map((view) => (
-                <button
-                  key={view}
-                  type="button"
-                  className={audienceView === view ? 'audience-pill active' : 'audience-pill'}
-                  onClick={() => setAudienceView(view)}
-                >
-                  {view}
-                </button>
+            <div className="lens-grid">
+              {lensCards.map((card, index) => (
+                <article key={card.title} className="lens-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
+                  <p className="lens-title">{card.title}</p>
+                  <p className="lens-label">{card.label}</p>
+                  <ul>
+                    {card.bullets.map((bullet) => (
+                      <li key={bullet}>{bullet}</li>
+                    ))}
+                  </ul>
+                </article>
               ))}
             </div>
 
-            <article className="audience-card">
-              <h3>{audienceBrief.title}</h3>
-              <p>{audienceBrief.lead}</p>
-
-              <div className="audience-grid">
-                <div>
-                  <h4>What this audience cares about</h4>
-                  <ul>
-                    {audienceBrief.priorities.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4>How I prove it in practice</h4>
-                  <ul>
-                    {audienceBrief.proofSignals.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </article>
-
-            {audienceView === 'Recruiters' ? (
-              <div className="audience-recruiter-grid">
-                {recruiterSignals.map((signal, index) => (
-                  <article key={signal.title} className="recruiter-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
-                    <h3>{signal.title}</h3>
-                    <p><strong>Recruiter check:</strong> {signal.recruiterQuestion}</p>
-                    <p><strong>What I demonstrate:</strong> {signal.answer}</p>
-                  </article>
-                ))}
-              </div>
-            ) : (
-              <div className="audience-hm-grid">
-                {hiringManagerSignals.map((signal, index) => (
-                  <article key={signal.stage} className="hm-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
-                    <h3>{signal.stage}</h3>
-                    <p><strong>Technical move:</strong> {signal.technicalMove}</p>
-                    <p><strong>Business move:</strong> {signal.businessMove}</p>
-                    <p><strong>Operating discipline:</strong> {signal.governance}</p>
-                  </article>
-                ))}
-              </div>
-            )}
-
-            <div className="pillar-grid">
+            <div className="pillar-grid compact-pillars">
               {pillars.map((pillar, index) => (
-                <article key={pillar.title} className="pillar-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
+                <article key={pillar.title} className="pillar-card compact reveal" style={{ transitionDelay: `${index * 90}ms` }}>
                   <h3>{pillar.title}</h3>
-                  <p className="pillar-summary">{pillar.summary}</p>
-                  <p className="pillar-translation">{pillar.businessTranslation}</p>
                   <div className="tag-wrap">
                     {pillar.tools.map((tool) => (
                       <span key={tool} className="tag">
@@ -781,33 +645,26 @@ const Home: NextPage = () => {
           <section id="business" className="section reveal">
             <div className="section-head">
               <p className="section-kicker">Business Lens</p>
-              <h2>I design for stakeholder action, not model novelty</h2>
+              <h2>Action-first system design</h2>
             </div>
-            <p className="section-intro">
-              My operating rule is simple: if stakeholders cannot take clear action on what I deliver, the system is incomplete. I
-              structure projects so insight naturally becomes decision and decision becomes measurable outcome.
-            </p>
 
             <div className="action-map-grid">
               {actionMap.map((item, index) => (
                 <article key={item.step} className="action-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
                   <p className="action-step">{item.step}</p>
                   <h3>{item.stakeholder}</h3>
-                  <p><strong>Decision:</strong> {item.decision}</p>
-                  <p><strong>Cadence:</strong> {item.cadence}</p>
-                  <p><strong>Business value:</strong> {item.value}</p>
+                  <p className="action-verb">{item.action}</p>
+                  <p className="action-outcome">{item.outcome}</p>
                 </article>
               ))}
             </div>
 
-            <div className="story-grid">
+            <div className="story-grid compact-story-grid">
               {businessStories.map((story, index) => (
-                <article key={story.title} className="story-card reveal" style={{ transitionDelay: `${index * 110}ms` }}>
+                <article key={story.title} className="story-card compact reveal" style={{ transitionDelay: `${index * 110}ms` }}>
                   <h3>{story.title}</h3>
-                  <p><strong>Context:</strong> {story.context}</p>
-                  <p><strong>What I built:</strong> {story.build}</p>
-                  <p><strong>Action enabled:</strong> {story.actionEnabled}</p>
-                  <p><strong>Outcome:</strong> {story.outcome}</p>
+                  <p className="story-what">{story.what}</p>
+                  <p className="story-outcome">{story.outcome}</p>
                 </article>
               ))}
             </div>
@@ -816,26 +673,17 @@ const Home: NextPage = () => {
           <section id="guidance" className="section reveal">
             <div className="section-head">
               <p className="section-kicker">Business Guidance</p>
-              <h2>How to work with me for business outcomes</h2>
-            </div>
-            <p className="section-intro">
-              For business leaders and stakeholders: this is the operating model I use to make AI and analytics decisions
-              actionable. It keeps teams aligned from objective definition through measurable outcome reviews.
-            </p>
-
-            <div className="guidance-track" aria-hidden="true">
-              <span className="track-pulse pulse-one" />
-              <span className="track-pulse pulse-two" />
-              <span className="track-pulse pulse-three" />
+              <h2>4-step execution timeline</h2>
             </div>
 
-            <div className="guidance-grid">
+            <div className="guidance-timeline">
               {guidanceSteps.map((step, index) => (
-                <article key={step.phase} className="guidance-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
-                  <p className="guidance-phase">{step.phase}</p>
-                  <p><strong>What you bring:</strong> {step.businessInput}</p>
-                  <p><strong>What I deliver:</strong> {step.whatIDeliver}</p>
-                  <p><strong>Decision unlocked:</strong> {step.decisionEnabled}</p>
+                <article key={step.id} className="guidance-step-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
+                  <p className="step-head">
+                    <span className="step-badge">{step.id}</span>
+                    <strong>{step.label}</strong>
+                  </p>
+                  <p className="step-summary">{step.summary}</p>
                 </article>
               ))}
             </div>
@@ -885,7 +733,10 @@ const Home: NextPage = () => {
                   type="button"
                   className={activeTrackId === track.id ? 'interest-card lane-pill active reveal' : 'interest-card lane-pill reveal'}
                   style={{ transitionDelay: `${index * 80}ms` }}
-                  onClick={() => setActiveTrackId(track.id)}
+                  onClick={() => {
+                    setActiveTrackId(track.id);
+                    setExpandedProjects(new Set());
+                  }}
                 >
                   <div className="interest-copy">
                     <p className="interest-label">{track.title}</p>
@@ -901,43 +752,58 @@ const Home: NextPage = () => {
             </p>
 
             <div className="projects-list">
-              {visibleProjects.map((project, index) => (
-                <article key={project.id} className="project-card reveal" style={{ transitionDelay: `${(index % 6) * 70}ms` }}>
-                  <div className="project-head">
-                    <h3>
-                      <span className="project-order">{String(index + 1).padStart(2, '0')}</span>
-                      {project.name}
-                    </h3>
-                    <a href={project.url} target="_blank" rel="noreferrer">
-                      Open Repo
-                    </a>
-                  </div>
-                  <p className="project-summary">{project.summary}</p>
-                  <ul>
-                    {project.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
-                  <div className="tag-wrap">
-                    {project.categories.map((category) => (
-                      <span key={`${project.id}-${category}`} className="tag">
-                        {category}
+              {visibleProjects.map((project, index) => {
+                const isExpanded = expandedProjects.has(project.id);
+                return (
+                  <article
+                    key={project.id}
+                    className={isExpanded ? 'project-card reveal expanded' : 'project-card reveal'}
+                    style={{ transitionDelay: `${(index % 6) * 70}ms` }}
+                  >
+                    <div className="project-head">
+                      <h3>
+                        <span className="project-order">{String(index + 1).padStart(2, '0')}</span>
+                        {project.name}
+                      </h3>
+                      <a href={project.url} target="_blank" rel="noreferrer">
+                        Open Repo
+                      </a>
+                    </div>
+                    <p className="project-summary">{project.summary}</p>
+                    <div className="tag-wrap">
+                      {project.categories.map((category) => (
+                        <span key={`${project.id}-${category}`} className="tag">
+                          {category}
+                        </span>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      className={isExpanded ? 'project-toggle active' : 'project-toggle'}
+                      onClick={() => toggleProject(project.id)}
+                      aria-expanded={isExpanded}
+                    >
+                      {isExpanded ? 'Hide details' : 'Show details'}
+                      <span className="toggle-chevron" aria-hidden="true">
+                        ▾
                       </span>
-                    ))}
-                  </div>
-                </article>
-              ))}
+                    </button>
+                    <ul className={isExpanded ? 'project-details expanded' : 'project-details'}>
+                      {project.highlights.map((highlight) => (
+                        <li key={highlight}>{highlight}</li>
+                      ))}
+                    </ul>
+                  </article>
+                );
+              })}
             </div>
           </section>
 
           <section id="contact" className="section reveal">
             <div className="contact-card">
               <p className="section-kicker">Contact</p>
-              <h2>Let&apos;s build systems that teams can actually act on</h2>
-              <p>
-                I&apos;m looking for roles where AI and analytics are expected to influence real decisions, not just reports. If that
-                sounds like your team, I&apos;d love to connect.
-              </p>
+              <h2>Let&apos;s build systems teams can act on</h2>
+              <p>Open to impact-first Data Science and AI roles.</p>
 
               <div className="contact-actions">
                 <a href="mailto:badlani.k@northeastern.edu" className="btn btn-primary">
