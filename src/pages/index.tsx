@@ -841,7 +841,7 @@ const Home: NextPage = () => {
               <h2>Pick your interest lane, then dive into project proof</h2>
             </div>
 
-            <div className="interest-grid" role="tablist" aria-label="Project interest lanes">
+            <div className="interest-grid" role="group" aria-label="Project interest lanes">
               {interestTracks.map((track, index) => (
                 <button
                   key={track.id}
