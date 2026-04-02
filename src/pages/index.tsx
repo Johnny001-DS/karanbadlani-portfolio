@@ -17,6 +17,19 @@ type AudienceBrief = {
   proofSignals: string[];
 };
 
+type RecruiterSignal = {
+  title: string;
+  recruiterQuestion: string;
+  answer: string;
+};
+
+type ManagerSignal = {
+  stage: string;
+  technicalMove: string;
+  businessMove: string;
+  governance: string;
+};
+
 type Pillar = {
   title: string;
   summary: string;
@@ -91,34 +104,73 @@ const impactStats: ImpactStat[] = [
 
 const audienceBriefs: Record<AudienceView, AudienceBrief> = {
   Recruiters: {
-    title: 'Why recruiters shortlist me',
-    lead: 'I ship business-ready AI products, not notebook-only models. I can partner with data, product, and business teams from discovery to deployment.',
+    title: 'Recruiter Lens: 30-second role fit',
+    lead: 'Short version: I am a business-facing AI data scientist who can translate ambiguity into shipped, measurable outcomes.',
     priorities: [
-      'Clear track record of measurable impact (conversion, forecast accuracy, retrieval speed, risk reduction).',
-      'Comfort across the full lifecycle: data prep, modeling, experimentation, deployment, and stakeholder communication.',
-      'Strong collaboration style with both technical teams and business leadership.',
+      'Demonstrated business impact with clear metric deltas.',
+      'Can collaborate across analytics, engineering, and leadership stakeholders.',
+      'Can independently execute from strategy to production.',
     ],
     proofSignals: [
-      'Improved sales forecasting error from 7.5% to 1.65% for 500 advisors.',
-      'Built RAG systems that reduced knowledge discovery time from 40 minutes to under 30 seconds.',
-      'Delivered ETL and analytics systems that made decisions faster for finance and operations teams.',
+      'Reduced advisor forecasting error from 7.5% to 1.65%.',
+      'Cut research retrieval from 40 minutes to under 30 seconds.',
+      'Turned model outputs into decision workflows, not one-off insights.',
     ],
   },
   'Hiring Managers': {
-    title: 'Why hiring managers trust my execution',
-    lead: 'I optimize for decision velocity and reliability. Every model, dashboard, or RAG stack is designed with a stakeholder action path before release.',
+    title: 'Hiring Manager Lens: execution model',
+    lead: 'I operate with a product mindset: define decision owners first, design robust architecture second, and prove business movement third.',
     priorities: [
-      'I define business KPIs and decision owners upfront, then map model outputs to those decision points.',
-      'I choose architectures that are debuggable in production: validation, monitoring, and rollback-ready deployment workflows.',
-      'I treat explainability and adoption as first-class outcomes, not post-launch tasks.',
+      'Clear problem framing tied to KPI ownership.',
+      'Production reliability through validation, monitoring, and deployment rigor.',
+      'Business-action loops that show downstream adoption and impact.',
     ],
     proofSignals: [
-      'Designed retrieval grading + query rewriting loops to improve F1 from 0.64 to 0.85.',
-      'Built Snowflake + forecasting pipeline architecture over 200GB+ workloads with stable downstream reporting.',
-      'Operationalized churn and risk workflows with MLflow, APIs, containerization, and CI/CD alignment.',
+      'Improved retrieval F1 from 0.64 to 0.85 through query control loops.',
+      'Built Snowflake + forecasting architecture over 200GB+ workloads.',
+      'Operationalized churn/risk workflows with tracked, deployable ML lifecycle patterns.',
     ],
   },
 };
+
+const recruiterSignals: RecruiterSignal[] = [
+  {
+    title: 'Business Outcome Focus',
+    recruiterQuestion: 'Can this person drive measurable outcomes?',
+    answer: 'Yes. My delivery history is framed by conversion lift, forecast accuracy gains, and decision-speed improvements.',
+  },
+  {
+    title: 'Cross-Functional Communication',
+    recruiterQuestion: 'Can this person work with non-technical stakeholders?',
+    answer: 'Yes. I design outputs as decision narratives (what to do next, why, and expected KPI effect), not raw model dumps.',
+  },
+  {
+    title: 'Execution Versatility',
+    recruiterQuestion: 'Can this person own delivery beyond modeling?',
+    answer: 'Yes. I work across data engineering, modeling, MLOps, and stakeholder rollouts to move projects end-to-end.',
+  },
+];
+
+const hiringManagerSignals: ManagerSignal[] = [
+  {
+    stage: 'Problem Framing',
+    technicalMove: 'Define KPI, leading indicators, and decision boundary before selecting algorithms.',
+    businessMove: 'Prevents misaligned optimization and improves stakeholder trust from day one.',
+    governance: 'Documented owner, decision cadence, and success criteria.',
+  },
+  {
+    stage: 'System Design',
+    technicalMove: 'Build reproducible pipelines with validation gates, versioned data/model assets, and observability hooks.',
+    businessMove: 'Keeps production stable and reduces stakeholder disruption from model drift or data breaks.',
+    governance: 'Runbooks for failure handling and rollback-ready deployment paths.',
+  },
+  {
+    stage: 'Adoption & Action',
+    technicalMove: 'Translate predictions into action tiers (who to target, when, and with what confidence).',
+    businessMove: 'Turns insights into operational decisions instead of passive dashboards.',
+    governance: 'Track action uptake and KPI response in recurring business reviews.',
+  },
+];
 
 const pillars: Pillar[] = [
   {
@@ -524,6 +576,15 @@ const Home: NextPage = () => {
               <h2>One profile, two clear hiring lenses</h2>
             </div>
 
+            <div className="why-hire-highlight">
+              <p className="highlight-kicker">Why Hire Me</p>
+              <h3>Business acumen is part of my technical process</h3>
+              <p>
+                I do not treat data science as a modeling-only function. I treat it as a decision-enablement function, where the
+                final deliverable is stakeholder action with measurable business movement.
+              </p>
+            </div>
+
             <div className="audience-toggle" role="tablist" aria-label="Audience lens selector">
               {(['Recruiters', 'Hiring Managers'] as AudienceView[]).map((view) => (
                 <button
@@ -560,6 +621,29 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </article>
+
+            {audienceView === 'Recruiters' ? (
+              <div className="audience-recruiter-grid">
+                {recruiterSignals.map((signal) => (
+                  <article key={signal.title} className="recruiter-card reveal">
+                    <h3>{signal.title}</h3>
+                    <p><strong>Recruiter check:</strong> {signal.recruiterQuestion}</p>
+                    <p><strong>What I demonstrate:</strong> {signal.answer}</p>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div className="audience-hm-grid">
+                {hiringManagerSignals.map((signal) => (
+                  <article key={signal.stage} className="hm-card reveal">
+                    <h3>{signal.stage}</h3>
+                    <p><strong>Technical move:</strong> {signal.technicalMove}</p>
+                    <p><strong>Business move:</strong> {signal.businessMove}</p>
+                    <p><strong>Operating discipline:</strong> {signal.governance}</p>
+                  </article>
+                ))}
+              </div>
+            )}
 
             <div className="pillar-grid">
               {pillars.map((pillar) => (
