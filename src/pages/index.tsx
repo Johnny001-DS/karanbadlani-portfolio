@@ -89,7 +89,6 @@ type InterestTrack = {
 
 const navItems = [
   { id: 'home', label: 'Home' },
-  { id: 'why-hire', label: 'Why Hire Me' },
   { id: 'business', label: 'Business Lens' },
   { id: 'guidance', label: 'Business Guidance' },
   { id: 'experience', label: 'Experience' },
