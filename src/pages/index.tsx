@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 
 type ImpactStat = {
@@ -75,6 +76,18 @@ type Project = {
   categories: string[];
   summary: string;
   highlights: string[];
+};
+
+type InterestTrackId = 'ds-analytics' | 'genai-mlops' | 'finance-healthcare';
+
+type InterestTrack = {
+  id: InterestTrackId;
+  title: string;
+  subtitle: string;
+  businessPrompt: string;
+  gif: string;
+  projectIds: number[];
+  profileTags: string[];
 };
 
 const navItems = [
@@ -454,23 +467,50 @@ const projects: Project[] = [
   },
 ];
 
+const interestTracks: InterestTrack[] = [
+  {
+    id: 'ds-analytics',
+    title: 'Data Science + Analytics',
+    subtitle: 'From data to decisions teams can execute every cycle.',
+    businessPrompt: 'Great for teams that need forecasting, segmentation, KPI framing, and trustworthy analytics systems.',
+    gif: '/gifs/data-science.gif',
+    projectIds: [2, 9, 10, 12, 13, 15],
+    profileTags: ['Forecasting', 'Segmentation', 'Data Warehousing', 'Decision Analytics'],
+  },
+  {
+    id: 'genai-mlops',
+    title: 'Generative AI + MLOps',
+    subtitle: 'Production RAG and deployable AI with quality guardrails.',
+    businessPrompt: 'Great for organizations scaling assistants and ML products with monitoring, evaluation, and reliability.',
+    gif: '/gifs/genai-mlops.gif',
+    projectIds: [1, 2, 7, 11, 12, 14],
+    profileTags: ['RAG', 'LangChain/LangGraph', 'MLflow', 'Docker + Deployment'],
+  },
+  {
+    id: 'finance-healthcare',
+    title: 'Financial + Healthcare AI',
+    subtitle: 'Domain-grounded ML where trust, risk, and actionability matter most.',
+    businessPrompt: 'Great for regulated or impact-sensitive domains where model outputs must translate into safe decisions.',
+    gif: '/gifs/finance-healthcare.gif',
+    projectIds: [4, 5, 6, 7, 8, 10, 14],
+    profileTags: ['Risk Modeling', 'Clinical AI', 'Compliance-Aware', 'Outcome Tracking'],
+  },
+];
+
 const Home: NextPage = () => {
   const [activeSection, setActiveSection] = useState<string>('home');
-  const [activeFilter, setActiveFilter] = useState<string>('All');
+  const [activeTrackId, setActiveTrackId] = useState<InterestTrackId>('ds-analytics');
   const [audienceView, setAudienceView] = useState<AudienceView>('Recruiters');
 
-  const filters = useMemo(() => {
-    const all = new Set<string>();
-    projects.forEach((project) => project.categories.forEach((category) => all.add(category)));
-    return ['All', ...Array.from(all)];
-  }, []);
+  const activeTrack = useMemo(
+    () => interestTracks.find((track) => track.id === activeTrackId) ?? interestTracks[0],
+    [activeTrackId]
+  );
 
   const visibleProjects = useMemo(() => {
-    if (activeFilter === 'All') {
-      return projects;
-    }
-    return projects.filter((project) => project.categories.includes(activeFilter));
-  }, [activeFilter]);
+    const trackProjects = new Set(activeTrack.projectIds);
+    return projects.filter((project) => trackProjects.has(project.id));
+  }, [activeTrack]);
 
   const audienceBrief = audienceBriefs[audienceView];
 
@@ -545,8 +585,8 @@ const Home: NextPage = () => {
             ))}
           </nav>
 
-          <a className="topbar-cta" href="#contact">
-            Talk Business Impact
+          <a className="topbar-cta wiggle-cta" href="#why-hire">
+            Why Hire Me
           </a>
         </header>
 
@@ -565,11 +605,14 @@ const Home: NextPage = () => {
                 </p>
 
                 <div className="hero-actions">
-                  <a className="btn btn-primary" href="#business">
+                  <a className="btn btn-primary" href="#why-hire">
+                    Why Hire Me
+                  </a>
+                  <a className="btn btn-secondary" href="#business">
                     See Actionability Framework
                   </a>
                   <a className="btn btn-secondary" href="#projects">
-                    Explore Projects
+                    Explore Project Lanes
                   </a>
                   <a className="btn btn-secondary" href="KaranBadlani.pdf" target="_blank" rel="noreferrer">
                     Resume
@@ -795,25 +838,46 @@ const Home: NextPage = () => {
           <section id="projects" className="section reveal">
             <div className="section-head">
               <p className="section-kicker">Project Intelligence</p>
-              <h2>15 project assets with real delivery patterns</h2>
+              <h2>Pick your interest lane, then dive into project proof</h2>
             </div>
 
-            <div className="filters" role="tablist" aria-label="Project category filters">
-              {filters.map((filter) => (
+            <div className="interest-grid" role="tablist" aria-label="Project interest lanes">
+              {interestTracks.map((track, index) => (
                 <button
-                  key={filter}
+                  key={track.id}
                   type="button"
-                  className={activeFilter === filter ? 'filter-pill active' : 'filter-pill'}
-                  onClick={() => setActiveFilter(filter)}
+                  className={activeTrackId === track.id ? 'interest-card active reveal' : 'interest-card reveal'}
+                  style={{ transitionDelay: `${index * 80}ms` }}
+                  onClick={() => setActiveTrackId(track.id)}
                 >
-                  {filter}
+                  <div className="interest-media">
+                    <Image
+                      src={track.gif}
+                      alt={`${track.title} animated visual`}
+                      width={640}
+                      height={360}
+                      unoptimized
+                    />
+                  </div>
+                  <div className="interest-copy">
+                    <p className="interest-label">{track.title}</p>
+                    <p className="interest-subtitle">{track.subtitle}</p>
+                    <p className="interest-business">{track.businessPrompt}</p>
+                    <div className="tag-wrap">
+                      {track.profileTags.map((tag) => (
+                        <span key={`${track.id}-${tag}`} className="tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </button>
               ))}
             </div>
 
             <p className="filter-count">
-              Showing <strong>{visibleProjects.length}</strong> project{visibleProjects.length === 1 ? '' : 's'}
-              {activeFilter === 'All' ? '' : ` in ${activeFilter}`}
+              Showing <strong>{visibleProjects.length}</strong> project{visibleProjects.length === 1 ? '' : 's'} for{' '}
+              <strong>{activeTrack.title}</strong>
             </p>
 
             <div className="projects-grid">
