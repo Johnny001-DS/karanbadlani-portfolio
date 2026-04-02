@@ -562,22 +562,27 @@ const Home: NextPage = () => {
         <div className="ambient-grain" aria-hidden="true" />
 
         <header className="topbar">
-          <a className="brand" href="#home">
-            <span className="brand-dot" />
-            <span>Karan Badlani // Decision-Centered AI</span>
-          </a>
+          <div className="top-identity">
+            <a className="brand brand-center" href="#home">
+              <span className="brand-dot" />
+              <span>Karan Badlani</span>
+            </a>
+            <p className="top-role">Seeking Data Scientist and Machine Learning Engineer Opportunities. | 2+ YOE</p>
+          </div>
 
-          <nav className="menu" aria-label="Section navigation">
-            {navItems.map((item) => (
-              <a key={item.id} href={`#${item.id}`} className={activeSection === item.id ? 'menu-link active' : 'menu-link'}>
-                {item.label}
-              </a>
-            ))}
-          </nav>
+          <div className="topbar-row">
+            <nav className="menu" aria-label="Section navigation">
+              {navItems.map((item) => (
+                <a key={item.id} href={`#${item.id}`} className={activeSection === item.id ? 'menu-link active' : 'menu-link'}>
+                  {item.label}
+                </a>
+              ))}
+            </nav>
 
-          <a className="topbar-cta wiggle-cta" href="#why-hire">
-            Why Hire Me
-          </a>
+            <a className="topbar-cta wiggle-cta" href="#why-hire">
+              Why Hire Me
+            </a>
+          </div>
         </header>
 
         <main>
