@@ -532,6 +532,35 @@ body {
   font-size: 0.9rem;
 }
 
+.workspace-panel {
+  scroll-margin-top: 110px;
+}
+
+.view-switch {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.view-pill {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.76);
+  color: var(--ink-muted);
+  font-size: 0.74rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.view-pill.active {
+  color: #f3fbff;
+  border-color: transparent;
+  background: linear-gradient(120deg, var(--accent-strong), var(--accent));
+}
+
 .lens-grid {
   margin-top: 12px;
   display: grid;

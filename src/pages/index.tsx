@@ -65,6 +65,8 @@ type InterestTrack = {
   projectIds: number[];
 };
 
+type PanelId = 'why-hire' | 'business' | 'guidance' | 'experience' | 'projects';
+
 const navItems = [
   { id: 'home', label: 'Home' },
   { id: 'why-hire', label: 'Why Hire Me' },
@@ -394,6 +396,7 @@ const Home: NextPage = () => {
   const headline = 'Data Scientist · AI Engineer · Machine Learning Engineer · 2+ YOE';
 
   const [activeSection, setActiveSection] = useState<string>('home');
+  const [activePanel, setActivePanel] = useState<PanelId>('why-hire');
   const [activeTrackId, setActiveTrackId] = useState<InterestTrackId>('ds-analytics');
   const [typedHeadline, setTypedHeadline] = useState<string>('');
   const [expandedProjects, setExpandedProjects] = useState<Set<number>>(new Set());
@@ -475,29 +478,11 @@ const Home: NextPage = () => {
       revealTargets.forEach((node) => observer.unobserve(node));
       observer.disconnect();
     };
-  }, [activeTrackId, expandedProjects]);
+  }, [activePanel, activeTrackId, expandedProjects]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const current = navItems.find((item) => {
-        const section = document.getElementById(item.id);
-        if (!section) {
-          return false;
-        }
-        const rect = section.getBoundingClientRect();
-        return rect.top <= 120 && rect.bottom >= 140;
-      });
-
-      if (current) {
-        setActiveSection(current.id);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    setActiveSection(activePanel);
+  }, [activePanel]);
 
   return (
     <>
@@ -530,13 +515,32 @@ const Home: NextPage = () => {
           <div className="topbar-row">
             <nav className="menu" aria-label="Section navigation">
               {navItems.map((item) => (
-                <a key={item.id} href={`#${item.id}`} className={activeSection === item.id ? 'menu-link active' : 'menu-link'}>
+                <a
+                  key={item.id}
+                  href={item.id === 'home' || item.id === 'contact' ? `#${item.id}` : '#workspace'}
+                  className={activeSection === item.id ? 'menu-link active' : 'menu-link'}
+                  onClick={
+                    item.id === 'home' || item.id === 'contact'
+                      ? () => setActiveSection(item.id)
+                      : () => {
+                          setActivePanel(item.id as PanelId);
+                          setActiveSection(item.id);
+                        }
+                  }
+                >
                   {item.label}
                 </a>
               ))}
             </nav>
 
-            <a className="topbar-cta wiggle-cta" href="#why-hire">
+            <a
+              className="topbar-cta wiggle-cta"
+              href="#workspace"
+              onClick={() => {
+                setActivePanel('why-hire');
+                setActiveSection('why-hire');
+              }}
+            >
               Why Hire Me
             </a>
           </div>
@@ -557,13 +561,34 @@ const Home: NextPage = () => {
                 </p>
 
                 <div className="hero-actions">
-                  <a className="btn btn-primary" href="#why-hire">
+                  <a
+                    className="btn btn-primary"
+                    href="#workspace"
+                    onClick={() => {
+                      setActivePanel('why-hire');
+                      setActiveSection('why-hire');
+                    }}
+                  >
                     Why Hire Me
                   </a>
-                  <a className="btn btn-secondary" href="#business">
+                  <a
+                    className="btn btn-secondary"
+                    href="#workspace"
+                    onClick={() => {
+                      setActivePanel('business');
+                      setActiveSection('business');
+                    }}
+                  >
                     See Actionability Framework
                   </a>
-                  <a className="btn btn-secondary" href="#projects">
+                  <a
+                    className="btn btn-secondary"
+                    href="#workspace"
+                    onClick={() => {
+                      setActivePanel('projects');
+                      setActiveSection('projects');
+                    }}
+                  >
                     Explore Project Lanes
                   </a>
                   <a className="btn btn-secondary" href={`${basePath}/KaranBadlani.pdf`} target="_blank" rel="noreferrer">
@@ -600,203 +625,217 @@ const Home: NextPage = () => {
             </div>
           </section>
 
-          <section id="why-hire" className="section reveal">
+          <section id="workspace" className="section reveal workspace-panel">
             <div className="section-head">
-              <p className="section-kicker">Audience-Aligned Value</p>
-              <h2>One profile, two clear hiring lenses</h2>
+              <p className="section-kicker">Interactive View</p>
+              <h2>Pick one view and explore deeply</h2>
             </div>
 
-            <blockquote className="quote-line">
-              <em>
-                &ldquo;I treat data science as a decision-enablement function - the deliverable is stakeholder action.&rdquo;
-              </em>
-            </blockquote>
-
-            <div className="lens-grid">
-              {lensCards.map((card, index) => (
-                <article key={card.title} className="lens-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
-                  <p className="lens-title">{card.title}</p>
-                  <p className="lens-label">{card.label}</p>
-                  <ul>
-                    {card.bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-
-            <div className="pillar-grid compact-pillars">
-              {pillars.map((pillar, index) => (
-                <article key={pillar.title} className="pillar-card compact reveal" style={{ transitionDelay: `${index * 90}ms` }}>
-                  <h3>{pillar.title}</h3>
-                  <div className="tag-wrap">
-                    {pillar.tools.map((tool) => (
-                      <span key={tool} className="tag">
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section id="business" className="section reveal">
-            <div className="section-head">
-              <p className="section-kicker">Business Lens</p>
-              <h2>Action-first system design</h2>
-            </div>
-
-            <div className="action-map-grid">
-              {actionMap.map((item, index) => (
-                <article key={item.step} className="action-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
-                  <p className="action-step">{item.step}</p>
-                  <h3>{item.stakeholder}</h3>
-                  <p className="action-verb">{item.action}</p>
-                  <p className="action-outcome">{item.outcome}</p>
-                </article>
-              ))}
-            </div>
-
-            <div className="story-grid compact-story-grid">
-              {businessStories.map((story, index) => (
-                <article key={story.title} className="story-card compact reveal" style={{ transitionDelay: `${index * 110}ms` }}>
-                  <h3>{story.title}</h3>
-                  <p className="story-what">{story.what}</p>
-                  <p className="story-outcome">{story.outcome}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section id="guidance" className="section reveal">
-            <div className="section-head">
-              <p className="section-kicker">Business Guidance</p>
-              <h2>4-step execution timeline</h2>
-            </div>
-
-            <div className="guidance-timeline">
-              {guidanceSteps.map((step, index) => (
-                <article key={step.id} className="guidance-step-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
-                  <p className="step-head">
-                    <span className="step-badge">{step.id}</span>
-                    <strong>{step.label}</strong>
-                  </p>
-                  <p className="step-summary">{step.summary}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section id="experience" className="section reveal">
-            <div className="section-head">
-              <p className="section-kicker">Experience</p>
-              <h2>Teams, roles, and delivery footprint</h2>
-            </div>
-
-            <div className="timeline">
-              {experiences.map((experience, index) => (
-                <article
-                  key={`${experience.company}-${experience.role}`}
-                  className="timeline-card reveal"
-                  style={{ transitionDelay: `${index * 90}ms` }}
-                >
-                  <div className="timeline-head">
-                    <h3>{experience.role}</h3>
-                    <p>{experience.company}</p>
-                  </div>
-                  <div className="timeline-meta">
-                    <span>{experience.period}</span>
-                    <span>{experience.location}</span>
-                  </div>
-                  <ul>
-                    {experience.achievements.map((achievement) => (
-                      <li key={achievement}>{achievement}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section id="projects" className="section reveal">
-            <div className="section-head">
-              <p className="section-kicker">Project Intelligence</p>
-              <h2>Pick your interest lane, then dive into project proof</h2>
-            </div>
-
-            <div className="interest-grid" role="group" aria-label="Project interest lanes">
-              {interestTracks.map((track, index) => (
+            <div className="view-switch" role="tablist" aria-label="Section view switcher">
+              {([
+                { id: 'why-hire', label: 'Why Hire Me' },
+                { id: 'business', label: 'Business Lens' },
+                { id: 'guidance', label: 'Guidance' },
+                { id: 'experience', label: 'Experience' },
+                { id: 'projects', label: 'Projects' },
+              ] as { id: PanelId; label: string }[]).map((panel) => (
                 <button
-                  key={track.id}
+                  key={panel.id}
                   type="button"
-                  className={activeTrackId === track.id ? 'interest-card lane-pill active reveal' : 'interest-card lane-pill reveal'}
-                  style={{ transitionDelay: `${index * 80}ms` }}
+                  className={activePanel === panel.id ? 'view-pill active' : 'view-pill'}
                   onClick={() => {
-                    setActiveTrackId(track.id);
-                    setExpandedProjects(new Set());
+                    setActivePanel(panel.id);
+                    setActiveSection(panel.id);
                   }}
                 >
-                  <div className="interest-copy">
-                    <p className="interest-label">{track.title}</p>
-                    <p className="interest-line">{track.shortLine}</p>
-                  </div>
+                  {panel.label}
                 </button>
               ))}
             </div>
 
-            <p className="filter-count">
-              Showing <strong>{visibleProjects.length}</strong> project{visibleProjects.length === 1 ? '' : 's'} for{' '}
-              <strong>{activeTrack.title}</strong>
-            </p>
+            {activePanel === 'why-hire' ? (
+              <div id="why-hire">
+                <blockquote className="quote-line">
+                  <em>
+                    &ldquo;I treat data science as a decision-enablement function - the deliverable is stakeholder action.&rdquo;
+                  </em>
+                </blockquote>
 
-            <div className="projects-list">
-              {visibleProjects.map((project, index) => {
-                const isExpanded = expandedProjects.has(project.id);
-                return (
-                  <article
-                    key={project.id}
-                    className={isExpanded ? 'project-card reveal expanded' : 'project-card reveal'}
-                    style={{ transitionDelay: `${(index % 6) * 70}ms` }}
-                  >
-                    <div className="project-head">
-                      <h3>
-                        <span className="project-order">{String(index + 1).padStart(2, '0')}</span>
-                        {project.name}
-                      </h3>
-                      <a href={project.url} target="_blank" rel="noreferrer">
-                        Open Repo
-                      </a>
-                    </div>
-                    <p className="project-summary">{project.summary}</p>
-                    <div className="tag-wrap">
-                      {project.categories.map((category) => (
-                        <span key={`${project.id}-${category}`} className="tag">
-                          {category}
-                        </span>
-                      ))}
-                    </div>
-                    <button
-                      type="button"
-                      className={isExpanded ? 'project-toggle active' : 'project-toggle'}
-                      onClick={() => toggleProject(project.id)}
-                      aria-expanded={isExpanded}
+                <div className="lens-grid">
+                  {lensCards.map((card, index) => (
+                    <article key={card.title} className="lens-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
+                      <p className="lens-title">{card.title}</p>
+                      <p className="lens-label">{card.label}</p>
+                      <ul>
+                        {card.bullets.map((bullet) => (
+                          <li key={bullet}>{bullet}</li>
+                        ))}
+                      </ul>
+                    </article>
+                  ))}
+                </div>
+
+                <div className="pillar-grid compact-pillars">
+                  {pillars.map((pillar, index) => (
+                    <article key={pillar.title} className="pillar-card compact reveal" style={{ transitionDelay: `${index * 90}ms` }}>
+                      <h3>{pillar.title}</h3>
+                      <div className="tag-wrap">
+                        {pillar.tools.map((tool) => (
+                          <span key={tool} className="tag">
+                            {tool}
+                          </span>
+                        ))}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {activePanel === 'business' ? (
+              <div id="business">
+                <div className="action-map-grid">
+                  {actionMap.map((item, index) => (
+                    <article key={item.step} className="action-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
+                      <p className="action-step">{item.step}</p>
+                      <h3>{item.stakeholder}</h3>
+                      <p className="action-verb">{item.action}</p>
+                      <p className="action-outcome">{item.outcome}</p>
+                    </article>
+                  ))}
+                </div>
+
+                <div className="story-grid compact-story-grid">
+                  {businessStories.map((story, index) => (
+                    <article key={story.title} className="story-card compact reveal" style={{ transitionDelay: `${index * 110}ms` }}>
+                      <h3>{story.title}</h3>
+                      <p className="story-what">{story.what}</p>
+                      <p className="story-outcome">{story.outcome}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {activePanel === 'guidance' ? (
+              <div id="guidance">
+                <div className="guidance-timeline">
+                  {guidanceSteps.map((step, index) => (
+                    <article key={step.id} className="guidance-step-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
+                      <p className="step-head">
+                        <span className="step-badge">{step.id}</span>
+                        <strong>{step.label}</strong>
+                      </p>
+                      <p className="step-summary">{step.summary}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {activePanel === 'experience' ? (
+              <div id="experience">
+                <div className="timeline">
+                  {experiences.map((experience, index) => (
+                    <article
+                      key={`${experience.company}-${experience.role}`}
+                      className="timeline-card reveal"
+                      style={{ transitionDelay: `${index * 90}ms` }}
                     >
-                      {isExpanded ? 'Hide details' : 'Show details'}
-                      <span className="toggle-chevron" aria-hidden="true">
-                        ▾
-                      </span>
+                      <div className="timeline-head">
+                        <h3>{experience.role}</h3>
+                        <p>{experience.company}</p>
+                      </div>
+                      <div className="timeline-meta">
+                        <span>{experience.period}</span>
+                        <span>{experience.location}</span>
+                      </div>
+                      <ul>
+                        {experience.achievements.map((achievement) => (
+                          <li key={achievement}>{achievement}</li>
+                        ))}
+                      </ul>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {activePanel === 'projects' ? (
+              <div id="projects">
+                <div className="interest-grid" role="group" aria-label="Project interest lanes">
+                  {interestTracks.map((track, index) => (
+                    <button
+                      key={track.id}
+                      type="button"
+                      className={activeTrackId === track.id ? 'interest-card lane-pill active reveal' : 'interest-card lane-pill reveal'}
+                      style={{ transitionDelay: `${index * 80}ms` }}
+                      onClick={() => {
+                        setActiveTrackId(track.id);
+                        setExpandedProjects(new Set());
+                      }}
+                    >
+                      <div className="interest-copy">
+                        <p className="interest-label">{track.title}</p>
+                        <p className="interest-line">{track.shortLine}</p>
+                      </div>
                     </button>
-                    <ul className={isExpanded ? 'project-details expanded' : 'project-details'}>
-                      {project.highlights.map((highlight) => (
-                        <li key={highlight}>{highlight}</li>
-                      ))}
-                    </ul>
-                  </article>
-                );
-              })}
-            </div>
+                  ))}
+                </div>
+
+                <p className="filter-count">
+                  Showing <strong>{visibleProjects.length}</strong> project{visibleProjects.length === 1 ? '' : 's'} for{' '}
+                  <strong>{activeTrack.title}</strong>
+                </p>
+
+                <div className="projects-list">
+                  {visibleProjects.map((project, index) => {
+                    const isExpanded = expandedProjects.has(project.id);
+                    return (
+                      <article
+                        key={project.id}
+                        className={isExpanded ? 'project-card reveal expanded' : 'project-card reveal'}
+                        style={{ transitionDelay: `${(index % 6) * 70}ms` }}
+                      >
+                        <div className="project-head">
+                          <h3>
+                            <span className="project-order">{String(index + 1).padStart(2, '0')}</span>
+                            {project.name}
+                          </h3>
+                          <a href={project.url} target="_blank" rel="noreferrer">
+                            Open Repo
+                          </a>
+                        </div>
+                        <p className="project-summary">{project.summary}</p>
+                        <div className="tag-wrap">
+                          {project.categories.map((category) => (
+                            <span key={`${project.id}-${category}`} className="tag">
+                              {category}
+                            </span>
+                          ))}
+                        </div>
+                        <button
+                          type="button"
+                          className={isExpanded ? 'project-toggle active' : 'project-toggle'}
+                          onClick={() => toggleProject(project.id)}
+                          aria-expanded={isExpanded}
+                        >
+                          {isExpanded ? 'Hide details' : 'Show details'}
+                          <span className="toggle-chevron" aria-hidden="true">
+                            ▾
+                          </span>
+                        </button>
+                        <ul className={isExpanded ? 'project-details expanded' : 'project-details'}>
+                          {project.highlights.map((highlight) => (
+                            <li key={highlight}>{highlight}</li>
+                          ))}
+                        </ul>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
           </section>
 
           <section id="contact" className="section reveal">
