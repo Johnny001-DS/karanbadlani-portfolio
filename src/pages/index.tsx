@@ -344,7 +344,7 @@ const experiences: Experience[] = [
 const projects: Project[] = [
   {
     id: 1,
-    name: 'Production Grade RAG Python App',
+    name: 'Decision Copilot for Enterprise Knowledge',
     url: 'https://github.com/Johnny001-DS/ProductionGradeRAGPythonApp',
     categories: ['Generative AI', 'MLOps', 'RAG'],
     summary: 'Production-ready document QA with PDF ingestion, vector retrieval, and evaluation-first RAG quality management.',
@@ -352,7 +352,7 @@ const projects: Project[] = [
   },
   {
     id: 2,
-    name: 'Telco Churn App',
+    name: 'Revenue Retention Action Engine',
     url: 'https://github.com/Johnny001-DS/telco-churn-app',
     categories: ['MLOps', 'Data Science', 'Analytics'],
     summary: 'End-to-end churn system from feature engineering to API deployment and monitoring-ready model operations.',
@@ -360,7 +360,7 @@ const projects: Project[] = [
   },
   {
     id: 3,
-    name: 'Dialogflow Chatbot',
+    name: 'Conversational Order Automation Assistant',
     url: 'https://github.com/Johnny001-DS/dialogflow_chatbot',
     categories: ['NLP', 'Chatbot'],
     summary: 'Conversational ordering assistant with intent management, webhook processing, and transactional persistence.',
@@ -368,7 +368,7 @@ const projects: Project[] = [
   },
   {
     id: 4,
-    name: 'Breast Cancer Classification',
+    name: 'Clinical Triage Signal Classifier',
     url: 'https://github.com/Johnny001-DS/Breast-cancer-classification',
     categories: ['Healthcare', 'Data Science', 'Computer Vision'],
     summary: 'Medical imaging classification workflow for benign vs malignant pattern detection experiments.',
@@ -376,7 +376,7 @@ const projects: Project[] = [
   },
   {
     id: 5,
-    name: 'EEG Brain Signal Classification',
+    name: 'Neuro-Signal Insight Classifier',
     url: 'https://github.com/Johnny001-DS/EEG-Brain-Signal-classification',
     categories: ['Healthcare', 'Data Science', 'Signal Processing'],
     summary: 'EEG signal processing and emotion classification research for interpretable biological endpoints.',
@@ -384,7 +384,7 @@ const projects: Project[] = [
   },
   {
     id: 6,
-    name: 'Credit Risk Modeling',
+    name: 'Lending Risk Decision Model',
     url: 'https://github.com/Johnny001-DS/Credit_Risk_Modeling',
     categories: ['Finance', 'Data Science', 'Analytics'],
     summary: 'Probability-of-default modeling for lending risk, combining traditional and boosted model strategies.',
@@ -392,7 +392,7 @@ const projects: Project[] = [
   },
   {
     id: 7,
-    name: 'Healthcare RAG Bot',
+    name: 'Healthcare Policy Intelligence Assistant',
     url: 'https://github.com/Johnny001-DS/Healthcare-RAG-Bot',
     categories: ['Generative AI', 'RAG', 'Healthcare', 'MLOps'],
     summary: 'Healthcare insurance document assistant with contextual retrieval and Bedrock-based response generation.',
@@ -400,7 +400,7 @@ const projects: Project[] = [
   },
   {
     id: 8,
-    name: 'Protein Prediction - Healthcare',
+    name: 'Protein Function Discovery Predictor',
     url: 'https://github.com/Johnny001-DS/ProteinPrediction-HealthCare',
     categories: ['Healthcare', 'Data Science', 'Deep Learning'],
     summary: 'CAFA5 protein function prediction workflow using sequence-based TensorFlow deep learning experiments.',
@@ -408,7 +408,7 @@ const projects: Project[] = [
   },
   {
     id: 9,
-    name: 'Analytics Data Warehousing (R)',
+    name: 'Executive-Ready Sales Intelligence Mart',
     url: 'https://github.com/Johnny001-DS/Analytics_DataWarehousing_R',
     categories: ['Data Engineering', 'Analytics', 'Data Warehousing'],
     summary: 'Sales datamart design integrating multi-source systems through star schema and ETL in R + SQL.',
@@ -416,7 +416,7 @@ const projects: Project[] = [
   },
   {
     id: 10,
-    name: 'Healthcare Recommendation System',
+    name: 'Patient Care Recommendation Intelligence',
     url: 'https://github.com/Johnny001-DS/HealthCare-Recommendation-System',
     categories: ['Healthcare', 'Data Science', 'Analytics'],
     summary: 'Patient clustering and recommendation research over NHANES with bias handling and dimensionality reduction.',
@@ -424,7 +424,7 @@ const projects: Project[] = [
   },
   {
     id: 11,
-    name: 'DocuFindAI',
+    name: 'Multi-Document Evidence Navigator',
     url: 'https://github.com/Johnny001-DS/DocuFindAI',
     categories: ['Generative AI', 'MLOps', 'Chatbot', 'RAG'],
     summary: 'Multi-format document and web QA platform comparing RAG and non-RAG quality profiles.',
@@ -432,7 +432,7 @@ const projects: Project[] = [
   },
   {
     id: 12,
-    name: 'Flight Ops Airflow',
+    name: 'Flight Operations KPI Pipeline',
     url: 'https://github.com/Johnny001-DS/flight-ops-airflow',
     categories: ['Data Engineering', 'Analytics', 'MLOps'],
     summary: 'Bronze-silver-gold Airflow pipeline ingesting live aviation signals into Snowflake KPI layers.',
@@ -440,7 +440,7 @@ const projects: Project[] = [
   },
   {
     id: 13,
-    name: 'Insureit DB Simulation',
+    name: 'Insurance Operations Decision Simulator',
     url: 'https://github.com/Johnny001-DS/Insureit-DB-Simulation-main',
     categories: ['Data Engineering', 'Analytics'],
     summary: 'CLI simulation of insurance operations with policy workflows and relational transaction logic.',
@@ -448,7 +448,7 @@ const projects: Project[] = [
   },
   {
     id: 14,
-    name: 'RAG Financial Analysis Chatbot',
+    name: 'Financial Research Decision Assistant',
     url: 'https://github.com/Johnny001-DS/RAG-based-Financial-Analysis-Chatbot',
     categories: ['Generative AI', 'RAG', 'MLOps', 'Finance'],
     summary: 'Financial RAG assistant blending retrieval architecture with cloud-native deployment patterns.',
@@ -456,7 +456,7 @@ const projects: Project[] = [
   },
   {
     id: 15,
-    name: 'Customer Segmentation',
+    name: 'Customer Growth Segment Strategist',
     url: 'https://github.com/Johnny001-DS/customer-segmentation',
     categories: ['Analytics', 'Data Science'],
     summary: 'Retail segmentation and recommendation design for targeted campaign and revenue optimization strategy.',
