@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 
 type ImpactStat = {
@@ -498,6 +499,8 @@ const interestTracks: InterestTrack[] = [
 ];
 
 const Home: NextPage = () => {
+  const router = useRouter();
+  const basePath = router.basePath ?? '';
   const [activeSection, setActiveSection] = useState<string>('home');
   const [activeTrackId, setActiveTrackId] = useState<InterestTrackId>('ds-analytics');
   const [audienceView, setAudienceView] = useState<AudienceView>('Recruiters');
@@ -614,7 +617,7 @@ const Home: NextPage = () => {
                   <a className="btn btn-secondary" href="#projects">
                     Explore Project Lanes
                   </a>
-                  <a className="btn btn-secondary" href="KaranBadlani.pdf" target="_blank" rel="noreferrer">
+                  <a className="btn btn-secondary" href={`${basePath}/KaranBadlani.pdf`} target="_blank" rel="noreferrer">
                     Resume
                   </a>
                 </div>
@@ -852,7 +855,7 @@ const Home: NextPage = () => {
                 >
                   <div className="interest-media">
                     <Image
-                      src={track.gif}
+                      src={`${basePath}${track.gif}`}
                       alt={`${track.title} animated visual`}
                       width={640}
                       height={360}
