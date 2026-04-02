@@ -1,17 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg: #f2f4f2;
-  --bg-soft: #e9eeea;
+  --bg: #ecf5fb;
+  --bg-soft: #e2eef7;
   --surface: rgba(255, 255, 255, 0.82);
   --surface-strong: #ffffff;
-  --line: #d5ddd8;
-  --ink: #1d2a30;
-  --ink-muted: #5f7076;
-  --accent: #3f7f86;
-  --accent-strong: #2f646a;
-  --accent-soft: #d8ebee;
-  --warm: #9a8f70;
+  --line: #c8dae6;
+  --ink: #172b38;
+  --ink-muted: #5a7180;
+  --accent: #1a9eb3;
+  --accent-strong: #0f7188;
+  --accent-soft: #d8eff5;
+  --warm: #748a95;
 }
 
 * {
@@ -27,9 +27,9 @@ body {
   font-family: 'Manrope', sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 12% -4%, rgba(63, 127, 134, 0.18), transparent 32%),
-    radial-gradient(circle at 88% 0%, rgba(154, 143, 112, 0.15), transparent 30%),
-    linear-gradient(180deg, #f4f6f4 0%, #eff3f0 56%, #ebefec 100%);
+    radial-gradient(circle at 10% -2%, rgba(26, 158, 179, 0.2), transparent 36%),
+    radial-gradient(circle at 90% 0%, rgba(103, 170, 208, 0.19), transparent 34%),
+    linear-gradient(180deg, #f4fafe 0%, #edf5fb 54%, #e8f1f9 100%);
   min-height: 100vh;
 }
 
@@ -50,8 +50,8 @@ body {
 
 .ambient-gradient {
   background:
-    radial-gradient(ellipse at 20% 15%, rgba(63, 127, 134, 0.1), transparent 48%),
-    radial-gradient(ellipse at 82% 10%, rgba(154, 143, 112, 0.09), transparent 42%);
+    radial-gradient(ellipse at 20% 15%, rgba(26, 158, 179, 0.11), transparent 48%),
+    radial-gradient(ellipse at 82% 10%, rgba(103, 170, 208, 0.11), transparent 42%);
   animation: breath 16s ease-in-out infinite;
 }
 
@@ -107,8 +107,9 @@ body {
 
 .brand-center {
   justify-content: center;
-  font-size: 1rem;
+  font-size: 1.28rem;
   font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
 .brand-dot {
@@ -121,11 +122,18 @@ body {
 
 .top-role {
   margin: 0;
-  color: #4f666c;
-  font-size: 0.78rem;
+  color: #3f6070;
+  font-size: 0.82rem;
   font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.01em;
+  min-height: 1.2em;
+}
+
+.type-cursor {
+  margin-left: 2px;
+  color: var(--accent-strong);
+  animation: cursorBlink 0.85s step-end infinite;
 }
 
 .menu {
@@ -161,7 +169,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.02em;
   color: #f4f8f8;
-  background: linear-gradient(120deg, var(--accent-strong), var(--accent));
+  background: linear-gradient(120deg, #0e6e87, #1aa8bd);
   box-shadow: 0 10px 24px rgba(47, 100, 106, 0.27);
 }
 
@@ -1025,6 +1033,17 @@ body {
   }
 }
 
+@keyframes cursorBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 1080px) {
   .hero-layout {
     grid-template-columns: 1fr;
@@ -1071,7 +1090,7 @@ body {
   }
 
   .top-role {
-    font-size: 0.72rem;
+    font-size: 0.69rem;
   }
 
   .menu {

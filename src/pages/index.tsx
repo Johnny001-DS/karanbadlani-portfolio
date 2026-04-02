@@ -488,9 +488,11 @@ const interestTracks: InterestTrack[] = [
 const Home: NextPage = () => {
   const router = useRouter();
   const basePath = router.basePath ?? '';
+  const headline = 'Data Scientist · AI Engineer · Machine Learning Engineer · 2+ YOE';
   const [activeSection, setActiveSection] = useState<string>('home');
   const [activeTrackId, setActiveTrackId] = useState<InterestTrackId>('ds-analytics');
   const [audienceView, setAudienceView] = useState<AudienceView>('Recruiters');
+  const [typedHeadline, setTypedHeadline] = useState<string>('');
 
   const activeTrack = useMemo(
     () => interestTracks.find((track) => track.id === activeTrackId) ?? interestTracks[0],
@@ -503,6 +505,42 @@ const Home: NextPage = () => {
   }, [activeTrack]);
 
   const audienceBrief = audienceBriefs[audienceView];
+
+  useEffect(() => {
+    let index = 0;
+    let deleting = false;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    const tick = () => {
+      if (!deleting) {
+        index = Math.min(index + 1, headline.length);
+        setTypedHeadline(headline.slice(0, index));
+        if (index === headline.length) {
+          deleting = true;
+          timeoutId = setTimeout(tick, 1300);
+          return;
+        }
+      } else {
+        index = Math.max(index - 1, 0);
+        setTypedHeadline(headline.slice(0, index));
+        if (index === 0) {
+          deleting = false;
+          timeoutId = setTimeout(tick, 300);
+          return;
+        }
+      }
+
+      timeoutId = setTimeout(tick, deleting ? 32 : 62);
+    };
+
+    timeoutId = setTimeout(tick, 280);
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [headline]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -567,7 +605,12 @@ const Home: NextPage = () => {
               <span className="brand-dot" />
               <span>Karan Badlani</span>
             </a>
-            <p className="top-role">Seeking Data Scientist and Machine Learning Engineer Opportunities. | 2+ YOE</p>
+            <p className="top-role" aria-label={headline}>
+              {typedHeadline}
+              <span className="type-cursor" aria-hidden="true">
+                |
+              </span>
+            </p>
           </div>
 
           <div className="topbar-row">
