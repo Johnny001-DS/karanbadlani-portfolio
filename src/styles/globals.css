@@ -415,6 +415,67 @@ body {
   max-width: 80ch;
 }
 
+.guidance-track {
+  position: relative;
+  margin-top: 14px;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(63, 127, 134, 0.12), rgba(63, 127, 134, 0.04));
+}
+
+.track-pulse {
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(63, 127, 134, 0), rgba(63, 127, 134, 0.55), rgba(63, 127, 134, 0));
+  animation: trackFlow 4.8s linear infinite;
+}
+
+.pulse-one {
+  left: -80px;
+}
+
+.pulse-two {
+  left: -140px;
+  animation-delay: 1.5s;
+}
+
+.pulse-three {
+  left: -210px;
+  animation-delay: 3s;
+}
+
+.guidance-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.guidance-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.guidance-card p {
+  margin: 8px 0 0;
+  color: var(--ink-muted);
+  line-height: 1.62;
+  font-size: 0.84rem;
+}
+
+.guidance-phase {
+  margin: 0 0 6px;
+  color: var(--accent-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
 .audience-toggle {
   margin-top: 14px;
   display: inline-flex;
@@ -815,6 +876,15 @@ body {
   }
 }
 
+@keyframes trackFlow {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(520px);
+  }
+}
+
 @keyframes bob {
   0%,
   100% {
@@ -833,6 +903,7 @@ body {
   .stat-grid,
   .audience-recruiter-grid,
   .audience-hm-grid,
+  .guidance-grid,
   .pillar-grid,
   .story-grid,
   .projects-grid,
@@ -879,6 +950,7 @@ body {
   .audience-grid,
   .audience-recruiter-grid,
   .audience-hm-grid,
+  .guidance-grid,
   .stat-grid,
   .pillar-grid,
   .story-grid,

@@ -45,6 +45,13 @@ type ActionMapItem = {
   value: string;
 };
 
+type GuidanceStep = {
+  phase: string;
+  businessInput: string;
+  whatIDeliver: string;
+  decisionEnabled: string;
+};
+
 type BusinessStory = {
   title: string;
   context: string;
@@ -74,6 +81,7 @@ const navItems = [
   { id: 'home', label: 'Home' },
   { id: 'why-hire', label: 'Why Hire Me' },
   { id: 'business', label: 'Business Lens' },
+  { id: 'guidance', label: 'Business Guidance' },
   { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
@@ -227,6 +235,33 @@ const actionMap: ActionMapItem[] = [
     decision: 'What action was taken and what business delta followed?',
     cadence: 'Bi-weekly review',
     value: 'Transforms ML from insight generation into measurable business execution.',
+  },
+];
+
+const guidanceSteps: GuidanceStep[] = [
+  {
+    phase: '1) Align on business objective',
+    businessInput: 'You define the business objective (revenue, retention, risk, cost, speed) and the decision owner.',
+    whatIDeliver: 'I convert objective into measurable KPI, operating constraints, and success thresholds.',
+    decisionEnabled: 'Leadership can approve a clear scope with ROI logic before technical build starts.',
+  },
+  {
+    phase: '2) Build for operational use',
+    businessInput: 'You provide operating realities: data freshness needs, action cadence, and acceptable risk.',
+    whatIDeliver: 'I design pipelines/models/RAG flows that match those realities with reliability guardrails.',
+    decisionEnabled: 'Teams can use outputs in day-to-day workflows instead of ad hoc analysis.',
+  },
+  {
+    phase: '3) Translate output to action',
+    businessInput: 'You clarify how teams act on different confidence bands and priority tiers.',
+    whatIDeliver: 'I package output into decision-ready views (who to act on, why now, what next).',
+    decisionEnabled: 'Stakeholders can take immediate action without interpreting raw technical artifacts.',
+  },
+  {
+    phase: '4) Close the business loop',
+    businessInput: 'You track adoption and business movement with us in recurring review cycles.',
+    whatIDeliver: 'I provide monitoring, drift checks, and KPI impact reporting tied to decisions taken.',
+    decisionEnabled: 'Organization learns what worked, what to tune, and where to scale next.',
   },
 ];
 
@@ -560,8 +595,8 @@ const Home: NextPage = () => {
             </div>
 
             <div className="stat-grid">
-              {impactStats.map((stat) => (
-                <article key={stat.label} className="stat-card reveal">
+              {impactStats.map((stat, index) => (
+                <article key={stat.label} className="stat-card reveal" style={{ transitionDelay: `${index * 80}ms` }}>
                   <p className="stat-value">{stat.value}</p>
                   <h2>{stat.label}</h2>
                   <p>{stat.detail}</p>
@@ -624,8 +659,8 @@ const Home: NextPage = () => {
 
             {audienceView === 'Recruiters' ? (
               <div className="audience-recruiter-grid">
-                {recruiterSignals.map((signal) => (
-                  <article key={signal.title} className="recruiter-card reveal">
+                {recruiterSignals.map((signal, index) => (
+                  <article key={signal.title} className="recruiter-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
                     <h3>{signal.title}</h3>
                     <p><strong>Recruiter check:</strong> {signal.recruiterQuestion}</p>
                     <p><strong>What I demonstrate:</strong> {signal.answer}</p>
@@ -634,8 +669,8 @@ const Home: NextPage = () => {
               </div>
             ) : (
               <div className="audience-hm-grid">
-                {hiringManagerSignals.map((signal) => (
-                  <article key={signal.stage} className="hm-card reveal">
+                {hiringManagerSignals.map((signal, index) => (
+                  <article key={signal.stage} className="hm-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
                     <h3>{signal.stage}</h3>
                     <p><strong>Technical move:</strong> {signal.technicalMove}</p>
                     <p><strong>Business move:</strong> {signal.businessMove}</p>
@@ -646,8 +681,8 @@ const Home: NextPage = () => {
             )}
 
             <div className="pillar-grid">
-              {pillars.map((pillar) => (
-                <article key={pillar.title} className="pillar-card reveal">
+              {pillars.map((pillar, index) => (
+                <article key={pillar.title} className="pillar-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
                   <h3>{pillar.title}</h3>
                   <p className="pillar-summary">{pillar.summary}</p>
                   <p className="pillar-translation">{pillar.businessTranslation}</p>
@@ -674,8 +709,8 @@ const Home: NextPage = () => {
             </p>
 
             <div className="action-map-grid">
-              {actionMap.map((item) => (
-                <article key={item.step} className="action-card reveal">
+              {actionMap.map((item, index) => (
+                <article key={item.step} className="action-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
                   <p className="action-step">{item.step}</p>
                   <h3>{item.stakeholder}</h3>
                   <p><strong>Decision:</strong> {item.decision}</p>
@@ -686,13 +721,41 @@ const Home: NextPage = () => {
             </div>
 
             <div className="story-grid">
-              {businessStories.map((story) => (
-                <article key={story.title} className="story-card reveal">
+              {businessStories.map((story, index) => (
+                <article key={story.title} className="story-card reveal" style={{ transitionDelay: `${index * 110}ms` }}>
                   <h3>{story.title}</h3>
                   <p><strong>Context:</strong> {story.context}</p>
                   <p><strong>What I built:</strong> {story.build}</p>
                   <p><strong>Action enabled:</strong> {story.actionEnabled}</p>
                   <p><strong>Outcome:</strong> {story.outcome}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="guidance" className="section reveal">
+            <div className="section-head">
+              <p className="section-kicker">Business Guidance</p>
+              <h2>How to work with me for business outcomes</h2>
+            </div>
+            <p className="section-intro">
+              For business leaders and stakeholders: this is the operating model I use to make AI and analytics decisions
+              actionable. It keeps teams aligned from objective definition through measurable outcome reviews.
+            </p>
+
+            <div className="guidance-track" aria-hidden="true">
+              <span className="track-pulse pulse-one" />
+              <span className="track-pulse pulse-two" />
+              <span className="track-pulse pulse-three" />
+            </div>
+
+            <div className="guidance-grid">
+              {guidanceSteps.map((step, index) => (
+                <article key={step.phase} className="guidance-card reveal" style={{ transitionDelay: `${index * 90}ms` }}>
+                  <p className="guidance-phase">{step.phase}</p>
+                  <p><strong>What you bring:</strong> {step.businessInput}</p>
+                  <p><strong>What I deliver:</strong> {step.whatIDeliver}</p>
+                  <p><strong>Decision unlocked:</strong> {step.decisionEnabled}</p>
                 </article>
               ))}
             </div>
@@ -705,8 +768,12 @@ const Home: NextPage = () => {
             </div>
 
             <div className="timeline">
-              {experiences.map((experience) => (
-                <article key={`${experience.company}-${experience.role}`} className="timeline-card reveal">
+              {experiences.map((experience, index) => (
+                <article
+                  key={`${experience.company}-${experience.role}`}
+                  className="timeline-card reveal"
+                  style={{ transitionDelay: `${index * 90}ms` }}
+                >
                   <div className="timeline-head">
                     <h3>{experience.role}</h3>
                     <p>{experience.company}</p>
@@ -750,8 +817,8 @@ const Home: NextPage = () => {
             </p>
 
             <div className="projects-grid">
-              {visibleProjects.map((project) => (
-                <article key={project.id} className="project-card reveal">
+              {visibleProjects.map((project, index) => (
+                <article key={project.id} className="project-card reveal" style={{ transitionDelay: `${(index % 6) * 70}ms` }}>
                   <div className="project-head">
                     <h3>{project.name}</h3>
                     <a href={project.url} target="_blank" rel="noreferrer">
