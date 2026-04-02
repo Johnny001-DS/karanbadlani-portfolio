@@ -385,7 +385,7 @@ const Home: NextPage = () => {
               <a className="btn btn-primary" href="#projects">
                 Explore Projects
               </a>
-              <a className="btn btn-secondary" href="/KaranBadlani.pdf" target="_blank" rel="noreferrer">
+              <a className="btn btn-secondary" href="KaranBadlani.pdf" target="_blank" rel="noreferrer">
                 View Resume
               </a>
               <a className="btn btn-secondary" href="https://github.com/Johnny001-DS" target="_blank" rel="noreferrer">
