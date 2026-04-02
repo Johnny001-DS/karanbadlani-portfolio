@@ -4,7 +4,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 
 // Toggle this to enable/disable maintenance mode
-const MAINTENANCE_MODE = true;
+const MAINTENANCE_MODE = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
   if (MAINTENANCE_MODE) {
