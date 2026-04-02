@@ -523,7 +523,7 @@ const Home: NextPage = () => {
       revealTargets.forEach((node) => observer.unobserve(node));
       observer.disconnect();
     };
-  }, []);
+  }, [activeTrackId, audienceView]);
 
   useEffect(() => {
     const handleScroll = () => {
