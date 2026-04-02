@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -84,11 +83,8 @@ type InterestTrackId = 'ds-analytics' | 'genai-mlops' | 'finance-healthcare';
 type InterestTrack = {
   id: InterestTrackId;
   title: string;
-  subtitle: string;
-  businessPrompt: string;
-  gif: string;
+  shortLine: string;
   projectIds: number[];
-  profileTags: string[];
 };
 
 const navItems = [
@@ -471,30 +467,21 @@ const projects: Project[] = [
 const interestTracks: InterestTrack[] = [
   {
     id: 'ds-analytics',
-    title: 'Data Science + Analytics',
-    subtitle: 'From data to decisions teams can execute every cycle.',
-    businessPrompt: 'Great for teams that need forecasting, segmentation, KPI framing, and trustworthy analytics systems.',
-    gif: '/gifs/data-science.gif',
+    title: 'Data Science & Analytics',
+    shortLine: 'Decision intelligence',
     projectIds: [2, 9, 10, 12, 13, 15],
-    profileTags: ['Forecasting', 'Segmentation', 'Data Warehousing', 'Decision Analytics'],
   },
   {
     id: 'genai-mlops',
-    title: 'Generative AI + MLOps',
-    subtitle: 'Production RAG and deployable AI with quality guardrails.',
-    businessPrompt: 'Great for organizations scaling assistants and ML products with monitoring, evaluation, and reliability.',
-    gif: '/gifs/genai-mlops.gif',
+    title: 'MLOps & AI',
+    shortLine: 'Production-ready systems',
     projectIds: [1, 2, 7, 11, 12, 14],
-    profileTags: ['RAG', 'LangChain/LangGraph', 'MLflow', 'Docker + Deployment'],
   },
   {
     id: 'finance-healthcare',
-    title: 'Financial + Healthcare AI',
-    subtitle: 'Domain-grounded ML where trust, risk, and actionability matter most.',
-    businessPrompt: 'Great for regulated or impact-sensitive domains where model outputs must translate into safe decisions.',
-    gif: '/gifs/finance-healthcare.gif',
+    title: 'Healthcare & Financial Projects',
+    shortLine: 'Trust-critical domains',
     projectIds: [4, 5, 6, 7, 8, 10, 14],
-    profileTags: ['Risk Modeling', 'Clinical AI', 'Compliance-Aware', 'Outcome Tracking'],
   },
 ];
 
@@ -849,30 +836,13 @@ const Home: NextPage = () => {
                 <button
                   key={track.id}
                   type="button"
-                  className={activeTrackId === track.id ? 'interest-card active reveal' : 'interest-card reveal'}
+                  className={activeTrackId === track.id ? 'interest-card lane-pill active reveal' : 'interest-card lane-pill reveal'}
                   style={{ transitionDelay: `${index * 80}ms` }}
                   onClick={() => setActiveTrackId(track.id)}
                 >
-                  <div className="interest-media">
-                    <Image
-                      src={`${basePath}${track.gif}`}
-                      alt={`${track.title} animated visual`}
-                      width={640}
-                      height={360}
-                      unoptimized
-                    />
-                  </div>
                   <div className="interest-copy">
                     <p className="interest-label">{track.title}</p>
-                    <p className="interest-subtitle">{track.subtitle}</p>
-                    <p className="interest-business">{track.businessPrompt}</p>
-                    <div className="tag-wrap">
-                      {track.profileTags.map((tag) => (
-                        <span key={`${track.id}-${tag}`} className="tag">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="interest-line">{track.shortLine}</p>
                   </div>
                 </button>
               ))}
@@ -883,11 +853,14 @@ const Home: NextPage = () => {
               <strong>{activeTrack.title}</strong>
             </p>
 
-            <div className="projects-grid">
+            <div className="projects-list">
               {visibleProjects.map((project, index) => (
                 <article key={project.id} className="project-card reveal" style={{ transitionDelay: `${(index % 6) * 70}ms` }}>
                   <div className="project-head">
-                    <h3>{project.name}</h3>
+                    <h3>
+                      <span className="project-order">{String(index + 1).padStart(2, '0')}</span>
+                      {project.name}
+                    </h3>
                     <a href={project.url} target="_blank" rel="noreferrer">
                       Open Repo
                     </a>
